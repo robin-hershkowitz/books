@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #132620;
+    --surface: #1B3A2E;
+    --surface-soft: #214839;
+    --border: #2C5345;
+    --text: #EDE6D2;
+    --text-dim: #9FB8A9;
+    --gold: #CBA135;
+    --rust: #C1502E;
+    --sage: #7FAE7A;
+    --shadow: rgba(0,0,0,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    padding: 2.5rem 1.25rem 4rem;
+    min-height: 100vh;
+  }
+
+  .wrap{ max-width: 740px; margin: 0 auto; }
+
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin: 0 0 0.5rem;
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 2.1rem;
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle{
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    margin: 0 0 2rem;
+  }
+
+  /* --- add form --- */
+  form.add-form{
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 1.1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 0.65rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 600px){
+    form.add-form{ grid-template-columns: 1fr; }
+    form.add-form button{ grid-column: 1 / -1; }
+  }
+
+  .field{ display: flex; flex-direction: column; gap: 0.3rem; }
+  .field label{
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  input{
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.92rem;
+    padding: 0.5rem 0.6rem;
+    width: 100%;
+  }
+  input::placeholder{ color: #6E8A7C; }
+  input:focus, button:focus{
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+  }
+  input[type="date"]{ color-scheme: dark; }
+
+  select{
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.92rem;
+    padding: 0.5rem 0.4rem;
+  }
+  select:focus{ outline: 2px solid var(--gold); outline-offset: 1px; }
+
+  button{
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    button{ transition: none; }
+  }
+  button:hover{ filter: brightness(1.08); }
+
+  .btn-primary{
+    background: var(--gold);
+    color: #1B2A1F;
+    padding: 0.6rem 1rem;
+    align-self: end;
+  }
+
+  /* --- empty state --- */
+  .empty{
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2.2rem 1.5rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+  .empty strong{ color: var(--text); display: block; font-family: 'Fraunces', serif; font-size: 1.1rem; margin-bottom: 0.3rem; }
+
+  /* --- book card --- */
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+    margin-bottom: 0.85rem;
+    display: grid;
+    grid-template-columns: 36px 1.5fr 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 10px var(--shadow);
+  }
+
+  @media (max-width: 680px){
+    .card{ grid-template-columns: 1fr; gap: 0.8rem; }
+  }
+
+  .pace-track{
+    width: 6px;
+    height: 64px;
+    background: var(--border);
+    border-radius: 3px;
+    position: relative;
+    margin: 0 auto;
+  }
+  @media (max-width: 680px){ .pace-track{ display: none; } }
+
+  .pace-marker{
+    position: absolute;
+    width: 20px;
+    height: 28px;
+    left: -7px;
+    transform: translateY(-50%);
+    clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%);
+  }
+
+  .book-main .title{
+    font-family: 'Fraunces', serif;
+    font-size: 1.18rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+  }
+  .book-main .meta{
+    font-size: 0.84rem;
+    color: var(--text-dim);
+    margin: 0 0 0.4rem;
+  }
+  .status-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    padding: 0.18rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  .dot{ width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+
+  .stats{
+    font-family: 'IBM Plex Mono', monospace;
+    text-align: right;
+    line-height: 1.35;
+  }
+  @media (max-width: 680px){ .stats{ text-align: left; } }
+  .stats .big{ font-size: 1.3rem; font-weight: 600; }
+  .stats .label{ font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.05em; text-transform: uppercase; }
+  .stats .pace-line{ font-size: 0.78rem; color: var(--text-dim); margin-top: 0.35rem; }
+
+  .actions{
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    align-items: flex-end;
+    min-width: 150px;
+  }
+  @media (max-width: 680px){ .actions{ align-items: stretch; flex-direction: row; } }
+
+  .log-row{ display: flex; flex-direction: column; gap: 0.3rem; align-items: flex-end; }
+  .log-row .log-label{
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .log-row .log-inputs{ display: flex; gap: 0.4rem; }
+  .log-row input{ width: 64px; }
+  .btn-log{
+    background: var(--surface-soft);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.7rem;
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .btn-log:hover{ background: var(--border); }
+
+  .btn-delete{
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    padding: 0.2rem 0;
+    text-decoration: underline;
+    align-self: flex-end;
+  }
+  .btn-delete:hover{ color: var(--rust); filter: none; }
+
+  .loading{ color: var(--text-dim); font-size: 0.9rem; padding: 1rem 0; }
+  .err{ color: var(--rust); font-size: 0.85rem; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <p class="eyebrow">Reading Log</p>
+  <h1>Keep pace.</h1>
+  <p class="subtitle">Add a book and its deadline. Log what you read each day and the pace updates itself.</p>
+
+  <form class="add-form" id="addForm">
+    <div class="field" style="grid-column: span 1;">
+      <label for="titleInput">Title</label>
+      <input id="titleInput" type="text" placeholder="The Brothers Karamazov">
+    </div>
+    <div class="field">
+      <label for="deadlineMonth">Finish by</label>
+      <div style="display:flex; gap:0.3rem;">
+        <select id="deadlineMonth" aria-label="Month"></select>
+        <select id="deadlineDay" aria-label="Day"></select>
+        <select id="deadlineYear" aria-label="Year"></select>
+      </div>
+    </div>
+    <button type="submit" class="btn-primary">Add to shelf</button>
+  </form>
+
+  <div id="errBox"></div>
+  <div id="bookList"><p class="loading">Loading your shelf…</p></div>
+</div>
+
+<script>
+  let books = [];
+  const listEl = document.getElementById('bookList');
+  const errEl = document.getElementById('errBox');
+
+  function showError(msg){
+    errEl.innerHTML = `<p class="err">${msg}</p>`;
+    setTimeout(() => { errEl.innerHTML = ''; }, 4000);
+  }
+
+  function startOfDay(d){
+    const x = new Date(d);
+    x.setHours(0,0,0,0);
+    return x;
+  }
+
+  function computeStats(book){
+    const today = startOfDay(new Date());
+    const deadline = startOfDay(new Date(book.deadline + 'T00:00:00'));
+    const daysLeft = Math.round((deadline - today) / 86400000);
+    const percentRead = Math.min(Math.max(book.percentRead, 0), 100);
+    const percentLeft = 100 - percentRead;
+    const finished = percentRead >= 100;
+
+    let status, color, paceLine;
+    if (finished){
+      status = 'Finished'; color = 'var(--gold)';
+      paceLine = 'Nothing left to read';
+    } else if (daysLeft < 0){
+      status = 'Overdue'; color = 'var(--rust)';
+      paceLine = `${Math.abs(daysLeft)} day${Math.abs(daysLeft)===1?'':'s'} past deadline`;
+    } else {
+      const safeDays = Math.max(daysLeft, 1);
+      const percentPerDay = percentLeft / safeDays;
+      if (percentPerDay > 8){ status = 'Urgent pace'; color = 'var(--rust)'; }
+      else if (percentPerDay > 3){ status = 'Steady pace'; color = 'var(--gold)'; }
+      else { status = 'Relaxed pace'; color = 'var(--sage)'; }
+      paceLine = `${percentPerDay.toFixed(1)}%/day to finish on time`;
+    }
+
+    return { daysLeft, percentRead, percentLeft, finished, status, color, paceLine };
+  }
+
+  function formatDate(iso){
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function render(){
+    if (books.length === 0){
+      listEl.innerHTML = `<div class="empty"><strong>Your shelf is empty.</strong>Add a book above to start tracking your pace.</div>`;
+      return;
+    }
+
+    const sorted = [...books].sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+
+    listEl.innerHTML = sorted.map(book => {
+      const s = computeStats(book);
+      const markerTop = Math.max(0, Math.min(100, s.percentRead));
+      return `
+        <div class="card" data-id="${book.id}">
+          <div class="pace-track">
+            <div class="pace-marker" style="top:${markerTop}%; background:${s.color};"></div>
+          </div>
+          <div class="book-main">
+            <p class="title">${escapeHtml(book.title)}</p>
+            <p class="meta">due ${formatDate(book.deadline)}</p>
+            <span class="status-badge" style="color:${s.color}; border-color:${s.color};">
+              <span class="dot" style="background:${s.color};"></span>${s.status}
+            </span>
+          </div>
+          <div class="stats">
+            <div class="big">${s.finished ? '✓' : (s.daysLeft < 0 ? '0' : s.daysLeft)}</div>
+            <div class="label">${s.finished ? 'complete' : 'days left'}</div>
+            <div class="pace-line">${s.percentRead.toFixed(0)}% read · ${s.paceLine}</div>
+          </div>
+          <div class="actions">
+            <div class="log-row">
+              <span class="log-label">Current %</span>
+              <div class="log-inputs">
+                <input type="number" min="0" max="100" step="1" value="${Math.round(s.percentRead)}" class="logInput" aria-label="Current percentage on Kindle">
+                <button class="btn-log" type="button" data-action="log">Update</button>
+              </div>
+            </div>
+            <button class="btn-delete" type="button" data-action="delete">Remove</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function populateDateSelects(){
+    const monthSel = document.getElementById('deadlineMonth');
+    const daySel = document.getElementById('deadlineDay');
+    const yearSel = document.getElementById('deadlineYear');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    monthSel.innerHTML = '<option value="">Month</option>' +
+      months.map((m,i) => `<option value="${i+1}">${m}</option>`).join('');
+    daySel.innerHTML = '<option value="">Day</option>' +
+      Array.from({length:31}, (_,i) => `<option value="${i+1}">${i+1}</option>`).join('');
+    const thisYear = new Date().getFullYear();
+    yearSel.innerHTML = '<option value="">Year</option>' +
+      Array.from({length:4}, (_,i) => thisYear+i).map(y => `<option value="${y}">${y}</option>`).join('');
+  }
+  populateDateSelects();
+
+  function readDeadline(){
+    const m = document.getElementById('deadlineMonth').value;
+    const d = document.getElementById('deadlineDay').value;
+    const y = document.getElementById('deadlineYear').value;
+    if (!m || !d || !y) return null;
+    return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function saveBooks(){
+    try{
+      const result = await window.storage.set('books', JSON.stringify(books));
+      if (!result) showError("Couldn't save — try again.");
+    } catch(e){
+      showError("Couldn't save — try again.");
+    }
+  }
+
+  async function loadBooks(){
+    try{
+      const result = await window.storage.get('books');
+      books = result ? JSON.parse(result.value) : [];
+    } catch(e){
+      books = [];
+    }
+    render();
+  }
+
+  document.getElementById('addForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('titleInput').value.trim();
+    const deadline = readDeadline();
+
+    if (!title){ showError('Add a title for the book.'); return; }
+    if (!deadline){ showError('Pick a month, day, and year for the deadline.'); return; }
+
+    books.push({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+      title,
+      percentRead: 0,
+      deadline
+    });
+    render();
+    document.getElementById('titleInput').value = '';
+    document.getElementById('deadlineMonth').value = '';
+    document.getElementById('deadlineDay').value = '';
+    document.getElementById('deadlineYear').value = '';
+    await saveBooks();
+  });
+
+  listEl.addEventListener('keydown', async (e) => {
+    if (e.key !== 'Enter' || !e.target.classList.contains('logInput')) return;
+    e.preventDefault();
+    const card = e.target.closest('.card');
+    const btn = card.querySelector('button[data-action="log"]');
+    btn.click();
+  });
+
+  listEl.addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const card = btn.closest('.card');
+    const id = card.dataset.id;
+    const book = books.find(b => b.id === id);
+    if (!book) return;
+
+    if (btn.dataset.action === 'delete'){
+      books = books.filter(b => b.id !== id);
+      render();
+      await saveBooks();
+    }
+
+    if (btn.dataset.action === 'log'){
+      const input = card.querySelector('.logInput');
+      const val = parseFloat(input.value);
+      if (isNaN(val) || val < 0 || val > 100) return;
+      book.percentRead = val;
+      render();
+      await saveBooks();
+    }
+  });
+
+  loadBooks();
+</script>
+
+</body>
+</html>
