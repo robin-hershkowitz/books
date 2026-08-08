@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upcoming September</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16151a;
+    --card: #1f1e25;
+    --text: #eceae4;
+    --muted: #a49f93;
+    --c1: #e0b04c; /* gold */
+    --c2: #d4707e; /* rose */
+    --c3: #6fae8f; /* sage */
+    --c4: #7d9bd1; /* periwinkle */
+    --c5: #c98f5e; /* copper */
+    --c6: #9d84c9; /* violet */
+    --c7: #5eb3b8; /* teal */
+    --c8: #c96a4e; /* brick */
+    --c9: #b8c95e; /* chartreuse */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  header {
+    max-width: 1100px;
+    margin: 0 auto 2.5rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 0.01em;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  .shelf {
+    max-width: 1100px;
+    margin: 0 auto;
+    columns: 3 320px;
+    column-gap: 1.25rem;
+  }
+
+  .book {
+    background: var(--card);
+    border-left: 4px solid var(--accent);
+    border-radius: 6px;
+    padding: 1.35rem 1.35rem 1.5rem;
+    margin-bottom: 1.25rem;
+    break-inside: avoid;
+  }
+
+  .book-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .cover {
+    width: 80px;
+    height: auto;
+    border-radius: 4px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  }
+
+  .title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .diamond {
+    width: 11px;
+    height: 11px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+
+  .book h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    line-height: 1.25;
+  }
+
+  .author {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin: 0.35rem 0 0.75rem;
+    padding-left: 1.4rem;
+  }
+
+  .genre {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .summary {
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+  }
+
+  .buy {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: 5px;
+    padding: 0.45rem 0.95rem;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+
+  .buy:hover, .buy:focus-visible {
+    background: var(--accent);
+    color: var(--bg);
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .buy { transition: none; }
+  }
+
+  .nav {
+    display: inline-block;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin-top: 0.9rem;
+  }
+
+  .nav:hover, .nav:focus-visible {
+    color: var(--text);
+    border-bottom-color: var(--muted);
+    outline: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Upcoming September</h1>
+  <a class="nav" href="./index.html">&larr; All shelves</a>
+</header>
+
+<main class="shelf">
+
+  <article class="book" style="--accent: var(--c1)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9781668083178-M.jpg" alt="Cover of All That We See or Seem" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>All That We See or Seem</h2></div>
+        <p class="author">Ken Liu</p>
+      </div>
+    </div>
+    <span class="genre">Sci-Fi Thriller</span>
+    <p class="summary">Julia Z, once famous as the teenage "orphan hacker," lives in careful digital obscurity outside Boston until a lawyer begs for her help. His wife, a celebrated dream artist who guides collective dreaming experiences, has been kidnapped, and untangling the real from the unreal pulls Julia into a high-stakes chase across an AI-saturated near future. First in a new series.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=All%20That%20We%20See%20or%20Seem%20Ken%20Liu" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c2)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780316599139-M.jpg" alt="Cover of Main Characters" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>Main Characters</h2></div>
+        <p class="author">Bobby Palmer</p>
+      </div>
+    </div>
+    <span class="genre">Literary Romance</span>
+    <p class="summary">Clara and Seb are about to fall in love. They don't know it yet, but everyone else does. Spanning two decades in London, their sweeping, messy romance is told entirely through the eyes of the people around them: friends, flatmates, rivals, and passing strangers. Everyone has a version of events, but only the main characters can decide how it ends.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=Main%20Characters%20Bobby%20Palmer" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c3)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780374115241-M.jpg" alt="Cover of Borne" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>Borne</h2></div>
+        <p class="author">Jeff VanderMeer</p>
+      </div>
+    </div>
+    <span class="genre">Sci-Fi / New Weird</span>
+    <p class="summary">In a ruined city terrorized by Mord, a giant flying bear created by a collapsed biotech company, scavenger Rachel finds a strange green lump tangled in his fur and takes it home. She names it Borne. As it grows, learns to talk, and becomes something between a child and a threat, Rachel must decide what Borne is and what loving it will cost her.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=Borne%20Jeff%20VanderMeer" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c4)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9798217046850-M.jpg" alt="Cover of American Fantasy" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>American Fantasy</h2></div>
+        <p class="author">Emma Straub</p>
+      </div>
+    </div>
+    <span class="genre">Contemporary Fiction</span>
+    <p class="summary">Newly divorced and stuck at a fading magazine job, fiftysomething Annie boards a nostalgia cruise headlined by Boy Talk, the boy band she adored as a teenager, after her sister bails at the last minute. Among slushy drinks and screaming middle-aged fans, she reconnects with a long-buried part of herself and unexpectedly befriends one of the band members. A funny, big-hearted story about fame, aging, and what we love.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=American%20Fantasy%20Emma%20Straub" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c5)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780063398467-M.jpg" alt="Cover of Dead but Dreaming of Electric Sheep" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>Dead but Dreaming of Electric Sheep</h2></div>
+        <p class="author">Paul Tremblay</p>
+      </div>
+    </div>
+    <span class="genre">Sci-Fi Horror</span>
+    <p class="summary">Julia Flang, a former gaming streamer drifting between dead-end jobs, gets an unprecedented offer from her tech-mogul mother's company: chaperone a brain-dead man implanted with proprietary AI on a journey from California to the East Coast. A darkly funny, genre-bending nightmare about Silicon Valley's takeover of the human mind and body.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=Dead%20but%20Dreaming%20of%20Electric%20Sheep%20Tremblay" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c6)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780063425880-M.jpg" alt="Cover of Meeting New People" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>Meeting New People</h2></div>
+        <p class="author">Daniel M. Lavery</p>
+      </div>
+    </div>
+    <span class="genre">Literary Fiction</span>
+    <p class="summary">Barbara, twice-divorced and armed with strong opinions about everything, is blindsided when her best friend dumps her over dinner, list of grievances in hand. Looking back on the nine great friendship breakups of her life, she sets out to find her tenth and final best friend. A sharp, laugh-out-loud comedy of manners about loneliness, faith, and making friends later in life.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=Meeting%20New%20People%20Daniel%20Lavery" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c7)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9780593820247-M.jpg" alt="Cover of Dungeon Crawler Carl" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>Dungeon Crawler Carl</h2></div>
+        <p class="author">Matt Dinniman</p>
+      </div>
+    </div>
+    <span class="genre">LitRPG / Sci-Fi Fantasy</span>
+    <p class="summary">Overnight, every building on Earth collapses and the survivors are invited into an eighteen-level dungeon beneath the surface, where the apocalypse doubles as an intergalactic reality show. Carl, in boxer shorts and armed mostly with spite, descends with his ex's cat, Princess Donut, who has gained sentience and a massive ego. Violent, absurd, and weirdly heartfelt.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=Dungeon%20Crawler%20Carl%20Matt%20Dinniman" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c8)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9798217047574-M.jpg" alt="Cover of Muñeca" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>Muñeca</h2></div>
+        <p class="author">Cynthia Gómez</p>
+      </div>
+    </div>
+    <span class="genre">Gothic Horror</span>
+    <p class="summary">In 1968 Oakland, Nati, a working-class witch, hears that the wealthy Miramontes family's daughter Violeta has fallen mysteriously ill. Certain it's dark magic, Nati takes a job as her caretaker, planning to break the curse and collect the reward. But as romance blooms between the two women, Nati grows reckless and must face ghosts of her own. A spellbinding gothic debut.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=Muneca%20Cynthia%20Gomez" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+  <article class="book" style="--accent: var(--c9)">
+    <div class="book-top">
+      <img class="cover" src="https://covers.openlibrary.org/b/isbn/9798985421231-M.jpg" alt="Cover of The Dark One" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <div class="title-row"><span class="diamond"></span><h2>The Dark One</h2></div>
+        <p class="author">Nikki St. Crowe</p>
+      </div>
+    </div>
+    <span class="genre">Dark Fantasy Romance</span>
+    <p class="summary">Book two of the Vicious Lost Boys series, a wicked adult reimagining of Peter Pan. Winnie Darling is caught deeper in Neverland's shadows, and this time the story turns toward Vane, the Dark One himself, whose power and cruelty hide something more dangerous: what he might feel for her. Steamy, villain-loving fun.</p>
+    <a class="buy" href="https://bookshop.org/search?keywords=The%20Dark%20One%20Nikki%20St%20Crowe" target="_blank" rel="noopener">Buy at Bookshop.org</a>
+  </article>
+
+</main>
+
+</body>
+</html>
