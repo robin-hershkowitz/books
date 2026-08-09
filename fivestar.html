@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Five-Star Reads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16151a;
+    --card: #1f1e25;
+    --text: #eceae4;
+    --muted: #a49f93;
+    --star: #e0b04c;
+    --g-decade: #9aa0a8;
+    --g-autobiography: #e0b04c;
+    --g-biography: #d4707e;
+    --g-classics: #6fae8f;
+    --g-contemporary: #7d9bd1;
+    --g-crime: #c98f5e;
+    --g-dystopian: #9d84c9;
+    --g-essays: #5eb3b8;
+    --g-fantasy: #c96a4e;
+    --g-feminism: #b8c95e;
+    --g-fiction: #c95e8f;
+    --g-graphic-novel: #8c8fa8;
+    --g-historical: #5f9ea0;
+    --g-history: #cfa3d8;
+    --g-horror: #a8b86a;
+    --g-lgbtqiaplus: #e0b04c;
+    --g-literary: #d4707e;
+    --g-magical-realism: #6fae8f;
+    --g-memoir: #7d9bd1;
+    --g-middle-grade: #c98f5e;
+    --g-music: #9d84c9;
+    --g-mystery: #5eb3b8;
+    --g-nonfiction: #c96a4e;
+    --g-psychology: #b8c95e;
+    --g-race: #c95e8f;
+    --g-religion: #8c8fa8;
+    --g-romance: #5f9ea0;
+    --g-science-fiction: #cfa3d8;
+    --g-self-help: #a8b86a;
+    --g-short-stories: #e0b04c;
+    --g-sociology: #d4707e;
+    --g-speculative-fiction: #6fae8f;
+    --g-technology: #7d9bd1;
+    --g-thriller: #c98f5e;
+    --g-travel: #9d84c9;
+    --g-true-crime: #5eb3b8;
+    --g-young-adult: #c96a4e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  header { max-width: 1100px; margin: 0 auto 1.6rem; }
+
+  .nav {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin-bottom: 1.1rem;
+  }
+
+  .nav:hover, .nav:focus-visible { color: var(--text); border-bottom-color: var(--muted); outline: none; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 0.01em;
+  }
+
+  h1 .star { color: var(--star); }
+
+  .subtitle { color: var(--muted); margin-top: 0.4rem; font-size: 0.95rem; }
+
+  .filters {
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .filters-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+
+  .status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-top: 0.85rem;
+  }
+
+  .clear {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--star);
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 0.6rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .clear[hidden] { display: none; }
+
+  .tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--tc, var(--muted));
+    background: color-mix(in srgb, var(--tc, var(--muted)) 15%, transparent);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.14s ease, background 0.14s ease;
+  }
+
+  .tag:hover, .tag:focus-visible { border-color: var(--tc, var(--muted)); outline: none; }
+
+  .tag[aria-pressed="true"] {
+    background: var(--tc, var(--muted));
+    color: var(--bg);
+    border-color: var(--tc, var(--muted));
+  }
+
+  .decade { font-family: 'IBM Plex Mono', monospace; --tc: var(--g-decade); }
+
+  .year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .g-autobiography { --tc: var(--g-autobiography); }
+  .g-biography { --tc: var(--g-biography); }
+  .g-classics { --tc: var(--g-classics); }
+  .g-contemporary { --tc: var(--g-contemporary); }
+  .g-crime { --tc: var(--g-crime); }
+  .g-dystopian { --tc: var(--g-dystopian); }
+  .g-essays { --tc: var(--g-essays); }
+  .g-fantasy { --tc: var(--g-fantasy); }
+  .g-feminism { --tc: var(--g-feminism); }
+  .g-fiction { --tc: var(--g-fiction); }
+  .g-graphic-novel { --tc: var(--g-graphic-novel); }
+  .g-historical { --tc: var(--g-historical); }
+  .g-history { --tc: var(--g-history); }
+  .g-horror { --tc: var(--g-horror); }
+  .g-lgbtqiaplus { --tc: var(--g-lgbtqiaplus); }
+  .g-literary { --tc: var(--g-literary); }
+  .g-magical-realism { --tc: var(--g-magical-realism); }
+  .g-memoir { --tc: var(--g-memoir); }
+  .g-middle-grade { --tc: var(--g-middle-grade); }
+  .g-music { --tc: var(--g-music); }
+  .g-mystery { --tc: var(--g-mystery); }
+  .g-nonfiction { --tc: var(--g-nonfiction); }
+  .g-psychology { --tc: var(--g-psychology); }
+  .g-race { --tc: var(--g-race); }
+  .g-religion { --tc: var(--g-religion); }
+  .g-romance { --tc: var(--g-romance); }
+  .g-science-fiction { --tc: var(--g-science-fiction); }
+  .g-self-help { --tc: var(--g-self-help); }
+  .g-short-stories { --tc: var(--g-short-stories); }
+  .g-sociology { --tc: var(--g-sociology); }
+  .g-speculative-fiction { --tc: var(--g-speculative-fiction); }
+  .g-technology { --tc: var(--g-technology); }
+  .g-thriller { --tc: var(--g-thriller); }
+  .g-travel { --tc: var(--g-travel); }
+  .g-true-crime { --tc: var(--g-true-crime); }
+  .g-young-adult { --tc: var(--g-young-adult); }
+
+  .shelf { max-width: 1100px; margin: 0 auto; columns: 3 300px; column-gap: 1.1rem; }
+
+  .book {
+    background: var(--card);
+    border-left: 3px solid var(--star);
+    border-radius: 6px;
+    padding: 1.1rem 1.15rem 1.2rem;
+    margin-bottom: 1.1rem;
+    break-inside: avoid;
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .book[hidden] { display: none; }
+
+  .cover {
+    width: 66px;
+    height: auto;
+    border-radius: 3px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.45);
+  }
+
+  .cover-blank {
+    height: 99px;
+    background: linear-gradient(150deg, #2b2932, #232128);
+    border: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    color: rgba(236,234,228,0.32);
+    letter-spacing: 0.05em;
+  }
+
+  .book h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.12rem; line-height: 1.25; }
+
+  .author { color: var(--muted); font-size: 0.85rem; margin: 0.25rem 0 0.4rem; }
+
+  .pages {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.6rem; }
+
+  .more {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--star);
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(224,176,76,0.4);
+    padding: 0;
+    margin-top: 0.7rem;
+    cursor: pointer;
+  }
+
+  .more:hover, .more:focus-visible { border-bottom-color: var(--star); outline: none; }
+
+  .desc-source { display: none; }
+
+  .empty { max-width: 1100px; margin: 0 auto; color: var(--muted); font-size: 0.95rem; }
+  .empty[hidden] { display: none; }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,9,13,0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 50;
+  }
+
+  .overlay[hidden] { display: none; }
+
+  .modal {
+    background: var(--card);
+    border-left: 4px solid var(--star);
+    border-radius: 8px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.8rem 1.9rem 2rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+
+  .modal-top { display: flex; gap: 1.1rem; align-items: flex-start; }
+
+  .modal-cover { width: 92px; border-radius: 4px; flex-shrink: 0; box-shadow: 0 3px 12px rgba(0,0,0,0.5); }
+
+  .modal h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem; line-height: 1.2; }
+
+  .modal-author { color: var(--muted); font-size: 0.9rem; margin: 0.3rem 0 0.45rem; }
+
+  .modal-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .modal-desc { font-size: 0.95rem; margin-top: 1.3rem; }
+
+  .modal-close {
+    display: block;
+    margin: 1.5rem 0 0 auto;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--star);
+    background: none;
+    border: 1.5px solid var(--star);
+    border-radius: 5px;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+  }
+
+  .modal-close:hover, .modal-close:focus-visible { background: var(--star); color: var(--bg); outline: none; }
+
+  @media (prefers-reduced-motion: reduce) { .tag { transition: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="nav" href="./index.html">&larr; All shelves</a>
+  <h1>Five-Star Reads <span class="star">&#9733;</span></h1>
+  <p class="subtitle">93 books &middot; most recent first &middot; tap Description where available</p>
+</header>
+
+<section class="filters">
+  <p class="filters-label">Filter &mdash; tap to combine</p>
+  <div class="chip-row" id="legend">
+    <button class="tag decade" data-filter="1960s" aria-pressed="false">1960s</button>
+    <button class="tag decade" data-filter="1970s" aria-pressed="false">1970s</button>
+    <button class="tag decade" data-filter="1980s" aria-pressed="false">1980s</button>
+    <button class="tag decade" data-filter="1990s" aria-pressed="false">1990s</button>
+    <button class="tag decade" data-filter="2000s" aria-pressed="false">2000s</button>
+    <button class="tag decade" data-filter="2010s" aria-pressed="false">2010s</button>
+    <button class="tag decade" data-filter="2020s" aria-pressed="false">2020s</button>
+    <button class="tag g-autobiography" data-filter="autobiography" aria-pressed="false">autobiography</button>
+    <button class="tag g-biography" data-filter="biography" aria-pressed="false">biography</button>
+    <button class="tag g-classics" data-filter="classics" aria-pressed="false">classics</button>
+    <button class="tag g-contemporary" data-filter="contemporary" aria-pressed="false">contemporary</button>
+    <button class="tag g-crime" data-filter="crime" aria-pressed="false">crime</button>
+    <button class="tag g-dystopian" data-filter="dystopian" aria-pressed="false">dystopian</button>
+    <button class="tag g-essays" data-filter="essays" aria-pressed="false">essays</button>
+    <button class="tag g-fantasy" data-filter="fantasy" aria-pressed="false">fantasy</button>
+    <button class="tag g-feminism" data-filter="feminism" aria-pressed="false">feminism</button>
+    <button class="tag g-fiction" data-filter="fiction" aria-pressed="false">fiction</button>
+    <button class="tag g-graphic-novel" data-filter="graphic novel" aria-pressed="false">graphic novel</button>
+    <button class="tag g-historical" data-filter="historical" aria-pressed="false">historical</button>
+    <button class="tag g-history" data-filter="history" aria-pressed="false">history</button>
+    <button class="tag g-horror" data-filter="horror" aria-pressed="false">horror</button>
+    <button class="tag g-lgbtqiaplus" data-filter="lgbtqia+" aria-pressed="false">lgbtqia+</button>
+    <button class="tag g-literary" data-filter="literary" aria-pressed="false">literary</button>
+    <button class="tag g-magical-realism" data-filter="magical realism" aria-pressed="false">magical realism</button>
+    <button class="tag g-memoir" data-filter="memoir" aria-pressed="false">memoir</button>
+    <button class="tag g-middle-grade" data-filter="middle grade" aria-pressed="false">middle grade</button>
+    <button class="tag g-music" data-filter="music" aria-pressed="false">music</button>
+    <button class="tag g-mystery" data-filter="mystery" aria-pressed="false">mystery</button>
+    <button class="tag g-nonfiction" data-filter="nonfiction" aria-pressed="false">nonfiction</button>
+    <button class="tag g-psychology" data-filter="psychology" aria-pressed="false">psychology</button>
+    <button class="tag g-race" data-filter="race" aria-pressed="false">race</button>
+    <button class="tag g-religion" data-filter="religion" aria-pressed="false">religion</button>
+    <button class="tag g-romance" data-filter="romance" aria-pressed="false">romance</button>
+    <button class="tag g-science-fiction" data-filter="science fiction" aria-pressed="false">science fiction</button>
+    <button class="tag g-self-help" data-filter="self help" aria-pressed="false">self help</button>
+    <button class="tag g-short-stories" data-filter="short stories" aria-pressed="false">short stories</button>
+    <button class="tag g-sociology" data-filter="sociology" aria-pressed="false">sociology</button>
+    <button class="tag g-speculative-fiction" data-filter="speculative fiction" aria-pressed="false">speculative fiction</button>
+    <button class="tag g-technology" data-filter="technology" aria-pressed="false">technology</button>
+    <button class="tag g-thriller" data-filter="thriller" aria-pressed="false">thriller</button>
+    <button class="tag g-travel" data-filter="travel" aria-pressed="false">travel</button>
+    <button class="tag g-true-crime" data-filter="true crime" aria-pressed="false">true crime</button>
+    <button class="tag g-young-adult" data-filter="young adult" aria-pressed="false">young adult</button>
+  </div>
+  <p class="status"><span id="count">93</span> shown<button class="clear" id="clear" hidden>clear</button></p>
+</section>
+
+<main class="shelf" id="shelf">
+
+  <article class="book" data-tags="2020s|fiction|literary|thriller">
+    <img class="cover" src="covers/yesteryear.jpg" alt="Cover of Yesteryear" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Yesteryear</h2>
+      <p class="author">Caro Claire Burke</p>
+      <p class="pages">391 pages</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Dark, mysterious and tense, at a medium pace. A 2026 HarperCollins literary thriller. Blurb still to be written.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|mystery|thriller">
+    <img class="cover" src="covers/strange-buildings.jpg" alt="Cover of Strange Buildings" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Strange Buildings</h2>
+      <p class="author">Uketsu, trans. Jim Rion</p>
+      <p class="pages">382 pages</p>
+      <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Eleven buildings, one terrible secret. From the masked Japanese author whose mysteries are assembled out of architectural floor plans, where the horror is in what the layout implies. Blurb still to be written.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|religion">
+    <img class="cover" src="covers/the-final-testament-of-the-holy-bible.jpg" alt="Cover of The Final Testament of the Holy Bible" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Final Testament of the Holy Bible</h2>
+      <p class="author">James Frey</p>
+      <p class="pages">398 pages</p>
+      <div class="tags"><span class="year">2011</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-religion" data-filter="religion">religion</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Messiah has returned, and he is a brain-damaged construction worker in a condemned Bronx building. Frey never lets Ben Zion Avrohom speak for himself: the book is testimony from the people who knew him, a brother, a landlord, a prostitute, a rabbi, each account contradicting the last.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|lgbtqia+|thriller">
+    <img class="cover" src="covers/we-used-to-live-here.jpg" alt="Cover of We Used to Live Here" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>We Used to Live Here</h2>
+      <p class="author">Marcus Kliewer</p>
+      <p class="pages">312 pages</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Eve and her girlfriend Charlie flip houses, and they have just bought a big old place in the woods. Then a man knocks: he grew up here, his family is in the car, could they look around, just for a minute. Eve says yes. They do not leave.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|literary">
+    <img class="cover" src="covers/one-s-company.jpg" alt="Cover of One's Company" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>One's Company</h2>
+      <p class="author">Ashley Hutson</p>
+      <p class="pages">272 pages</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Bonnie Lincoln survives something unspeakable, wins an enormous lottery jackpot, and spends it building a private replica of the Three's Company sets on remote land, where she intends to live out the sitcom alone, playing every part on a rotating schedule. Grief as world-building.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|nonfiction|history|travel">
+    <img class="cover" src="covers/the-lost-city-of-the-monkey-god.jpg" alt="Cover of The Lost City of the Monkey God" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Lost City of the Monkey God</h2>
+      <p class="author">Douglas Preston</p>
+      <p class="pages">326 pages</p>
+      <div class="tags"><span class="year">2017</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-history" data-filter="history">history</button><button class="tag g-travel" data-filter="travel">travel</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Preston joins an expedition into Honduras's Mosquitia, one of the last unmapped rainforests, hunting a city generations of adventurers died looking for. Lidar finds it from the air; reaching it on foot means snakes and mud and a valley no human has entered in five centuries. Then the team starts coming home with a flesh-eating parasite.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|horror|literary|thriller">
+    <img class="cover" src="covers/american-psycho.jpg" alt="Cover of American Psycho" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>American Psycho</h2>
+      <p class="author">Bret Easton Ellis</p>
+      <p class="pages">399 pages</p>
+      <div class="tags"><span class="year">1991</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Patrick Bateman, 26, Pierce & Pierce, reviews his skincare regimen and his business cards in the same flat voice he uses for the murders, and nobody in his circle can reliably tell him apart from the other interchangeable men in Valentino. Whether any of it happens is left open.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|literary">
+    <img class="cover" src="covers/remarkably-bright-creatures.jpg" alt="Cover of Remarkably Bright Creatures" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Remarkably Bright Creatures</h2>
+      <p class="author">Shelby Van Pelt</p>
+      <p class="pages">360 pages</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Tova cleans the aquarium at night because her husband is dead and her son vanished off a boat thirty years ago and the work keeps her upright. Marcellus, a giant Pacific octopus with a low opinion of humans and about a year left to live, has worked out what happened to the boy. The problem is telling her.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|literary|magical realism">
+    <img class="cover" src="covers/we-love-you-bunny.jpg" alt="Cover of We Love You, Bunny" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>We Love You, Bunny</h2>
+      <p class="author">Mona Awad</p>
+      <p class="pages">496 pages</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-magical-realism" data-filter="magical realism">magical realism</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The sequel to Bunny, and this time the Bunnies get the microphone. They have a great deal to say about Samantha, about what really went on in that workshop, and about who was using whom. Cotton-candy menace at nearly five hundred pages.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1970s|fiction|dystopian|horror|thriller">
+    <img class="cover" src="covers/the-long-walk.jpg" alt="Cover of The Long Walk" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Long Walk</h2>
+      <p class="author">Richard Bachman / Stephen King</p>
+      <p class="pages">370 pages</p>
+      <div class="tags"><span class="year">1979</span><button class="tag decade" data-filter="1970s">1970s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">One hundred teenage boys start walking south from the Maine border. Drop below four miles an hour and you get a warning; collect three and the soldiers on the halftrack shoot you. No finish line, only a last boy standing. King wrote it at eighteen and it is still the meanest thing he has published.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|dystopian|literary">
+    <img class="cover" src="covers/i-who-have-never-known-men.jpg" alt="Cover of I Who Have Never Known Men" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>I Who Have Never Known Men</h2>
+      <p class="author">Jacqueline Harpman</p>
+      <p class="pages">201 pages</p>
+      <div class="tags"><span class="year">1995</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Thirty-nine women in a cage in a bunker, guarded by silent men, and one girl among them too young to remember anything before. She has no reference for the world the others mourn. Then the alarm sounds, the guards run, and the cage is open. A cold, clean book about being the last of a species that never taught you what it was.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|dystopian|literary|thriller">
+    <img class="cover" src="covers/the-compound.jpg" alt="Cover of The Compound" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Compound</h2>
+      <p class="author">Aisling Rawle</p>
+      <p class="pages">292 pages</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Lily wakes in a desert compound with nineteen other contestants, ten men and ten women, on a reality show nobody explains to her. Completing tasks earns luxuries; the tasks get worse. Outside, something has gone wrong with the world, though the show does not discuss that either.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|literary">
+    <img class="cover" src="covers/banal-nightmare.jpg" alt="Cover of Banal Nightmare" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Banal Nightmare</h2>
+      <p class="author">Halle Butler</p>
+      <p class="pages">315 pages</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Margaret Anne moves back to her Midwestern college town after leaving a bad relationship in Chicago, planning to recover. Instead she is thirty-something among people she went to school with, all of them monstrous in the small way real people are, all of them talking. Butler's specialty is the interior monologue that will not let anyone off.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|science fiction">
+    <img class="cover" src="covers/children-of-time.jpg" alt="Cover of Children of Time" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Children of Time</h2>
+      <p class="author">Adrian Tchaikovsky</p>
+      <p class="pages">599 pages</p>
+      <div class="tags"><span class="year">2015</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A terraforming project seeds a planet with a virus meant to uplift monkeys. The monkeys die and the spiders get it instead. Millennia pass in jumps as an arachnid civilisation invents language, religion and mathematics, while the last human ark ship limps toward the only habitable world left, which is theirs.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|literary|romance">
+    <img class="cover" src="covers/sky-daddy.jpg" alt="Cover of Sky Daddy" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Sky Daddy</h2>
+      <p class="author">Kate Folk</p>
+      <p class="pages">352 pages</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-romance" data-filter="romance">romance</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Linda is sexually attracted to aeroplanes and believes she is destined to die in a crash, which will be her wedding. She works a dead-end social media job to fund flights, ranks aircraft by how they look at her, and narrates all of it with total sincerity. Somehow funny rather than cruel.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|historical">
+    <img class="cover" src="covers/the-clan-of-the-cave-bear.jpg" alt="Cover of The Clan of the Cave Bear" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Clan of the Cave Bear</h2>
+      <p class="author">Jean M. Auel</p>
+      <p class="pages">494 pages</p>
+      <div class="tags"><span class="year">1980</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">An earthquake orphans a five-year-old Cro-Magnon girl, and a band of Neanderthals takes her in against their own instincts. Ayla grows up too tall, too pale, too curious, and too willing to do things women of the Clan do not do. The prehistory is exhaustively researched and the politics are pure family drama.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|literary|short stories">
+    <img class="cover" src="covers/rejection.jpg" alt="Cover of Rejection" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Rejection</h2>
+      <p class="author">Tony Tulathimutte</p>
+      <p class="pages">258 pages</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Linked stories about people ruined by wanting to be wanted: the male feminist whose decency is a strategy, the woman optimising herself into nothing, the incel, the striver. Each one escalates past where a polite book would stop, and the final piece turns the whole structure on the reader.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|horror">
+    <img class="cover" src="covers/swan-song.jpg" alt="Cover of Swan Song" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Swan Song</h2>
+      <p class="author">Robert R. McCammon</p>
+      <p class="pages">956 pages</p>
+      <div class="tags"><span class="year">1987</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Nuclear war, then the long walk through the ashes. A girl with an inexplicable gift, a wrestler turned protector, a drifter, and a thing wearing many faces that moves among the survivors encouraging the worst in them. A doorstopper apocalypse from the same era as The Stand and unembarrassed about it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|lgbtqia+|literary">
+    <img class="cover" src="covers/all-fours.jpg" alt="Cover of All Fours" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>All Fours</h2>
+      <p class="author">Miranda July</p>
+      <p class="pages">326 pages</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A semi-famous artist sets out to drive from Los Angeles to New York, gets thirty minutes from home, checks into a motel in Monrovia and stays for three weeks, redecorating the room at enormous expense. What follows is perimenopause as a genuine crisis of self, handled with July's total absence of shame.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|contemporary|lgbtqia+">
+    <img class="cover" src="covers/a-home-at-the-end-of-the-world.jpg" alt="Cover of A Home at the End of the World" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>A Home at the End of the World</h2>
+      <p class="author">Michael Cunningham</p>
+      <p class="pages">342 pages</p>
+      <div class="tags"><span class="year">1990</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Bobby and Jonathan meet as boys in Cleveland, one grieving, one closeted, and stay tangled for decades. Add Clare, older and pregnant, and the three of them try to construct a family with no template for it, in a house upstate, in the years when that was a race against the epidemic.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|fantasy|science fiction">
+    <img class="cover" src="covers/the-leftovers.jpg" alt="Cover of The Leftovers" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Leftovers</h2>
+      <p class="author">Tom Perrotta</p>
+      <p class="pages">355 pages</p>
+      <div class="tags"><span class="year">2011</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two percent of the world's population vanishes at once, and Perrotta ignores the mystery entirely to write about the suburb left behind. A mayor trying to organise a memorial, a wife who joins a cult of silent smokers, a daughter drifting. The rapture as a grief novel about people who were not chosen.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|contemporary|historical">
+    <img class="cover" src="covers/little-bee.jpg" alt="Cover of Little Bee" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Little Bee</h2>
+      <p class="author">Chris Cleave</p>
+      <p class="pages">304 pages</p>
+      <div class="tags"><span class="year">2008</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-historical" data-filter="historical">historical</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A Nigerian girl in a British immigration detention centre is released with nowhere to go, and turns up on the doorstep of a magazine editor in Surrey. They met once before, on a beach, on the worst day of both their lives. The book withholds that scene for a long time, and is right to.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|literary">
+    <img class="cover" src="covers/the-interestings.jpg" alt="Cover of The Interestings" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Interestings</h2>
+      <p class="author">Meg Wolitzer</p>
+      <p class="pages">468 pages</p>
+      <div class="tags"><span class="year">2013</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Six teenagers meet at an arts summer camp in 1974 and name themselves the Interestings. Wolitzer follows them for forty years as talent turns out to be distributed unevenly and unfairly, and friendship has to survive one of them becoming genuinely famous while the others merely have lives.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|nonfiction|biography|memoir">
+    <img class="cover" src="covers/superstud-or-how-i-became-a-24-year-old-virgin.jpg" alt="Cover of Superstud: Or How I Became a 24-Year-Old Virgin" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Superstud: Or How I Became a 24-Year-Old Virgin</h2>
+      <p class="author">Paul Feig</p>
+      <p class="pages">293 pages</p>
+      <div class="tags"><span class="year">2005</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-biography" data-filter="biography">biography</button><button class="tag g-memoir" data-filter="memoir">memoir</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Before Freaks and Geeks and Bridesmaids, Feig catalogues his own humiliations in exhaustive detail: the failed seductions, the medical mishaps, the school dances. Comic memoir that works because he refuses to make himself retroactively cool.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|literary">
+    <img class="cover" src="covers/a-visit-from-the-goon-squad.jpg" alt="Cover of A Visit from the Goon Squad" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>A Visit from the Goon Squad</h2>
+      <p class="author">Jennifer Egan</p>
+      <p class="pages">273 pages</p>
+      <div class="tags"><span class="year">2010</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Thirteen chapters moving around a record executive and his former assistant across decades, jumping narrator and form each time, including one told entirely in PowerPoint slides. The goon of the title is time, and the book is about what it does to people who thought they were going to be in music forever.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|contemporary">
+    <img class="cover" src="covers/bright-shiny-morning.jpg" alt="Cover of Bright Shiny Morning" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Bright Shiny Morning</h2>
+      <p class="author">James Frey</p>
+      <p class="pages">501 pages</p>
+      <div class="tags"><span class="year">2008</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Los Angeles as a mosaic: a runaway couple, a Mexican maid in Pasadena, an ageing film star, a man living under the freeway, spliced with lists and civic trivia and invented statistics. Frey's first outright novel after the memoir scandal, and deliberately enormous.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|literary|magical realism">
+    <img class="cover" src="covers/the-pisces.jpg" alt="Cover of The Pisces" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Pisces</h2>
+      <p class="author">Melissa Broder</p>
+      <p class="pages">270 pages</p>
+      <div class="tags"><span class="year">2018</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-magical-realism" data-filter="magical realism">magical realism</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Lucy, dissertation stalled and relationship over, is housesitting in Venice Beach and attending a group therapy for love addicts when she meets a merman on the rocks at night. The sex is transcendent and the rest is a clear-eyed account of using another body to avoid your own mind.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|historical|literary">
+    <img class="cover" src="covers/the-invention-of-wings.jpg" alt="Cover of The Invention of Wings" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Invention of Wings</h2>
+      <p class="author">Sue Monk Kidd</p>
+      <p class="pages">373 pages</p>
+      <div class="tags"><span class="year">2014</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Charleston, 1803. Sarah Grimke is given a ten-year-old enslaved girl, Handful, as an eleventh-birthday present, and tries to refuse. Thirty-five years of both their lives follow, in alternating voices, toward Sarah's real career as an abolitionist and Handful's own refusals.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1960s|fiction|classics|middle grade|mystery">
+    <img class="cover" src="covers/from-the-mixed-up-files-of-mrs-basil-e-frankweil.jpg" alt="Cover of From the Mixed-Up Files of Mrs. Basil E. Frankweiler" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>From the Mixed-Up Files of Mrs. Basil E. Frankweiler</h2>
+      <p class="author">E.L. Konigsburg</p>
+      <p class="pages">178 pages</p>
+      <div class="tags"><span class="year">1967</span><button class="tag decade" data-filter="1960s">1960s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-classics" data-filter="classics">classics</button><button class="tag g-middle-grade" data-filter="middle grade">middle grade</button><button class="tag g-mystery" data-filter="mystery">mystery</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Claudia Kincaid, feeling unappreciated, runs away from home to the Metropolitan Museum of Art with her younger brother and his savings, bathing in the fountain and sleeping in a sixteenth-century bed. Then they find a statue that might be a Michelangelo, and go looking for the woman who sold it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|dystopian|fantasy|literary|thriller">
+    <img class="cover" src="covers/the-twelve.jpg" alt="Cover of The Twelve" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Twelve</h2>
+      <p class="author">Justin Cronin</p>
+      <p class="pages">568 pages</p>
+      <div class="tags"><span class="year">2012</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Book two of The Passage. Five years after the viral collapse, the survivors' settlements are organised, fortified and rotten in places, and the twelve original carriers are still out there with the hive minds they command. Cronin keeps the literary register and widens the scope.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|romance|science fiction">
+    <img class="cover" src="covers/ice-planet-barbarians.jpg" alt="Cover of Ice Planet Barbarians" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Ice Planet Barbarians</h2>
+      <p class="author">Ruby Dixon</p>
+      <p class="pages">188 pages</p>
+      <div class="tags"><span class="year">2015</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-romance" data-filter="romance">romance</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Georgie and a cargo hold of abducted human women are dumped on a frozen planet by aliens who no longer want them. Survival requires a symbiont that rewires the body for the cold, and the symbiont has opinions about who belongs to whom. The book that launched a genre's current boom, at 188 unembarrassed pages.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|horror|short stories">
+    <img class="cover" src="covers/cat-person-and-other-stories.jpg" alt="Cover of Cat Person and Other Stories" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Cat Person and Other Stories</h2>
+      <p class="author">Kristen Roupenian</p>
+      <p class="pages">236 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The collection built around the short story that went viral in 2017, about a twenty-year-old, an older man, a bad date and a worse decision. The other pieces are stranger and meaner, running toward outright horror, all of them about the gap between what people want and what they will admit to.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|nonfiction|lgbtqia+|memoir">
+    <img class="cover" src="covers/in-the-dream-house.jpg" alt="Cover of In the Dream House" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>In the Dream House</h2>
+      <p class="author">Carmen Maria Machado</p>
+      <p class="pages">247 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-memoir" data-filter="memoir">memoir</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Machado's account of an abusive relationship with another woman, told in more than a hundred short chapters each borrowing a narrative form: haunted house, choose-your-own-adventure, folk tale, noir. The structure is the argument, since queer abuse has had no accepted shape to be told in.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|literary|science fiction|short stories">
+    <img class="cover" src="covers/exhalation.jpg" alt="Cover of Exhalation" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Exhalation</h2>
+      <p class="author">Ted Chiang</p>
+      <p class="pages">368 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Nine stories, each taking one premise absolutely seriously: a device that proves free will is an illusion, an Arabian gate that leads twenty years into the past, digital pets raised like children, a mechanical being performing an autopsy on its own brain. Chiang's rigour is the pleasure.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|nonfiction|essays|feminism">
+    <img class="cover" src="covers/trick-mirror-reflections-on-self-delusion.jpg" alt="Cover of Trick Mirror: Reflections on Self-Delusion" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Trick Mirror: Reflections on Self-Delusion</h2>
+      <p class="author">Jia Tolentino</p>
+      <p class="pages">303 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-essays" data-filter="essays">essays</button><button class="tag g-feminism" data-filter="feminism">feminism</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Nine essays on the internet as an engine for performing the self, plus scamming as the defining ethos of the era, reality television, difficulty in weddings, and the athleisure-optimised body. Tolentino includes herself in every indictment, which is what makes them land.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|nonfiction|autobiography|biography|memoir|music">
+    <img class="cover" src="covers/the-dirt-confessions-of-the-world-s-most-notorio.jpg" alt="Cover of The Dirt: Confessions of the World's Most Notorious Rock Band" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Dirt: Confessions of the World's Most Notorious Rock Band</h2>
+      <p class="author">Tommy Lee, Nikki Sixx, Vince Neil</p>
+      <p class="pages">431 pages</p>
+      <div class="tags"><span class="year">2001</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-autobiography" data-filter="autobiography">autobiography</button><button class="tag g-biography" data-filter="biography">biography</button><button class="tag g-memoir" data-filter="memoir">memoir</button><button class="tag g-music" data-filter="music">music</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Motley Crue in their own alternating voices, and nobody involved has any interest in coming off well. Overdoses, jail, a fatal car crash, heroin, the works, recounted in a deadpan oral-history format that makes the whole thing funnier and considerably worse.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|dystopian|young adult">
+    <img class="cover" src="covers/the-hunger-games.jpg" alt="Cover of The Hunger Games" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Hunger Games</h2>
+      <p class="author">Suzanne Collins</p>
+      <p class="pages">374 pages</p>
+      <div class="tags"><span class="year">2008</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-young-adult" data-filter="young adult">young adult</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Katniss volunteers to take her sister's place in a televised fight to the death between children, staged annually by the Capitol as a reminder of a failed rebellion. The genre-defining one, and sharper on spectacle and complicity than its imitators managed.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|mystery|thriller">
+    <img class="cover" src="covers/gone-girl.jpg" alt="Cover of Gone Girl" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Gone Girl</h2>
+      <p class="author">Gillian Flynn</p>
+      <p class="pages">463 pages</p>
+      <div class="tags"><span class="year">2012</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Amy Dunne disappears on her fifth wedding anniversary and her husband Nick behaves exactly as guilty as everyone needs him to. Her diary tells one story, his narration another, and the midpoint reveal reset what a domestic thriller was allowed to do.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|contemporary">
+    <img class="cover" src="covers/microserfs.jpg" alt="Cover of Microserfs" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Microserfs</h2>
+      <p class="author">Douglas Coupland</p>
+      <p class="pages">371 pages</p>
+      <div class="tags"><span class="year">1995</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Six Microsoft coders in 1993 escape the Redmond campus to build a Lego-like product in a Palo Alto house, narrated in journal entries and fragments of machine noise. Prescient about startup culture, and mostly a book about people trying to get a life while shipping.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|nonfiction|essays|self help">
+    <img class="cover" src="covers/how-to-be-a-person-in-the-world.jpg" alt="Cover of How to Be a Person in the World" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>How to Be a Person in the World</h2>
+      <p class="author">Heather Havrilesky</p>
+      <p class="pages">258 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-essays" data-filter="essays">essays</button><button class="tag g-self-help" data-filter="self help">self help</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Selected Ask Polly columns. People write in about jealousy, career panic, bad boyfriends, wanting to be special, and Havrilesky answers at length and at volume, refusing to be soothing while remaining on their side.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|horror|short stories">
+    <img class="cover" src="covers/haunted.jpg" alt="Cover of Haunted" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Haunted</h2>
+      <p class="author">Chuck Palahniuk</p>
+      <p class="pages">411 pages</p>
+      <div class="tags"><span class="year">2005</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Seventeen people answer an ad for a writers' retreat, get locked in a derelict theatre, and set about sabotaging the food and each other so their eventual survival story will sell better. Framed around the stories each tells, including the notorious one about the swimming pool.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|crime">
+    <img class="cover" src="covers/tampa.jpg" alt="Cover of Tampa" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Tampa</h2>
+      <p class="author">Alissa Nutting</p>
+      <p class="pages">268 pages</p>
+      <div class="tags"><span class="year">2013</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-crime" data-filter="crime">crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Celeste Price is a beautiful twenty-six-year-old middle school teacher who took the job in order to have access to fourteen-year-old boys, and narrates her predation in gleaming, cold, entirely unrepentant prose. A satire of how attractiveness launders monstrousness.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|classics|literary">
+    <img class="cover" src="covers/a-prayer-for-owen-meany.jpg" alt="Cover of A Prayer for Owen Meany" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>A Prayer for Owen Meany</h2>
+      <p class="author">John Irving</p>
+      <p class="pages">637 pages</p>
+      <div class="tags"><span class="year">1989</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-classics" data-filter="classics">classics</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Owen is tiny, has a wrecked voice rendered in capital letters, believes he is God's instrument, and hits a foul ball that kills his best friend's mother. Fifty years of New Hampshire, faith and Vietnam build toward the exact use of everything the book has planted.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|fantasy|horror|thriller">
+    <img class="cover" src="covers/the-vampire-lestat.jpg" alt="Cover of The Vampire Lestat" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Vampire Lestat</h2>
+      <p class="author">Anne Rice</p>
+      <p class="pages">512 pages</p>
+      <div class="tags"><span class="year">1985</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Lestat rises in 1984, becomes a rock star, and writes his own rebuttal to Interview with the Vampire, going back through pre-revolutionary France, his making, and the older things beneath Europe. The book that turned the series into a mythology.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|fantasy">
+    <img class="cover" src="covers/lamb-the-gospel-according-to-biff-christ-s-child.jpg" alt="Cover of Lamb: The Gospel According to Biff, Christ's Childhood Pal" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Lamb: The Gospel According to Biff, Christ's Childhood Pal</h2>
+      <p class="author">Christopher Moore</p>
+      <p class="pages">444 pages</p>
+      <div class="tags"><span class="year">2002</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Biff is resurrected in a modern hotel room and made to write the missing years of his best friend Joshua's life: the trek east, the yoga, the martial arts, the increasingly nervous run-up to a ministry Biff can see coming. Irreverent, well-researched, and sincerely fond of its subject.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1960s|fiction|classics|dystopian|literary|science fiction">
+    <img class="cover" src="covers/a-clockwork-orange.jpg" alt="Cover of A Clockwork Orange" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>A Clockwork Orange</h2>
+      <p class="author">Anthony Burgess</p>
+      <p class="pages">228 pages</p>
+      <div class="tags"><span class="year">1962</span><button class="tag decade" data-filter="1960s">1960s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-classics" data-filter="classics">classics</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Alex narrates his ultra-violence in Nadsat, a Russian-inflected teen slang the reader has to learn by immersion, then the state cures him of the capacity to choose it. Burgess's question is whether enforced goodness is worth anything at all.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|literary|thriller">
+    <img class="cover" src="covers/room.jpg" alt="Cover of Room" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Room</h2>
+      <p class="author">Emma Donoghue</p>
+      <p class="pages">10h 46m audio</p>
+      <div class="tags"><span class="year">2010</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Jack is five and Room is the whole world: eleven feet square, with Ma, and Old Nick who comes at night. Narrated entirely in Jack's voice, which makes the first half bearable and the second half, once there is an outside, much harder.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|nonfiction|religion|true crime">
+    <img class="cover" src="covers/under-the-banner-of-heaven.jpg" alt="Cover of Under the Banner of Heaven" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Under the Banner of Heaven</h2>
+      <p class="author">Jon Krakauer</p>
+      <p class="pages">400 pages</p>
+      <div class="tags"><span class="year">2003</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-religion" data-filter="religion">religion</button><button class="tag g-true-crime" data-filter="true crime">true crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The 1984 murder of a woman and her infant by two fundamentalist Mormon brothers acting on revelation, braided with a history of the LDS church from Joseph Smith through the Mountain Meadows massacre. Krakauer's argument is about what faith licenses.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|true crime">
+    <img class="cover" src="covers/gone-at-midnight-the-mysterious-death-of-elisa-l.jpg" alt="Cover of Gone at Midnight: The Mysterious Death of Elisa Lam" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Gone at Midnight: The Mysterious Death of Elisa Lam</h2>
+      <p class="author">Jake Anderson</p>
+      <p class="pages">368 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-true-crime" data-filter="true crime">true crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Canadian student found in a water tank on the roof of LA's Cecil Hotel, and the elevator footage that made her a decade of internet theorising. Anderson works the case against his own obsession with it, and lands on mental illness and institutional failure rather than the occult.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|literary|mystery">
+    <img class="cover" src="covers/disappearing-earth.jpg" alt="Cover of Disappearing Earth" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Disappearing Earth</h2>
+      <p class="author">Julia Phillips</p>
+      <p class="pages">256 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-mystery" data-filter="mystery">mystery</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two sisters vanish from a beach in Kamchatka, and the following chapters move month by month through the women of the peninsula, most of them strangers to the case, until the connections close. As much about indigenous Even communities and Russian indifference as about the crime.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|classics|dystopian|science fiction|young adult">
+    <img class="cover" src="covers/the-giver.jpg" alt="Cover of The Giver" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Giver</h2>
+      <p class="author">Lois Lowry</p>
+      <p class="pages">179 pages</p>
+      <div class="tags"><span class="year">1993</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-classics" data-filter="classics">classics</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-young-adult" data-filter="young adult">young adult</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Jonas turns twelve and is assigned to be Receiver of Memory, the one person permitted to know what his community traded away for its total calm: colour, weather, music, grief, choice. The ending is still argued about.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1970s|fiction|classics|fantasy|middle grade">
+    <img class="cover" src="covers/the-neverending-story.jpg" alt="Cover of The Neverending Story" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Neverending Story</h2>
+      <p class="author">Michael Ende</p>
+      <p class="pages">448 pages</p>
+      <div class="tags"><span class="year">1979</span><button class="tag decade" data-filter="1970s">1970s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-classics" data-filter="classics">classics</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-middle-grade" data-filter="middle grade">middle grade</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Bastian steals a book, hides in his school attic, and reads about Fantastica being eaten by the Nothing, until the book starts addressing him directly and he goes in. The second half, which the film abandoned, is about what unlimited wishing costs.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|literary">
+    <img class="cover" src="covers/the-idiot.jpg" alt="Cover of The Idiot" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Idiot</h2>
+      <p class="author">Elif Batuman</p>
+      <p class="pages">423 pages</p>
+      <div class="tags"><span class="year">2017</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Selin's first year at Harvard in 1995: linguistics, email as a brand new medium, and a slow oblique correspondence with an older Hungarian mathematics student that goes nowhere and consumes everything. Very funny about being clever and completely unequipped.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|contemporary">
+    <img class="cover" src="covers/the-gum-thief.jpg" alt="Cover of The Gum Thief" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Gum Thief</h2>
+      <p class="author">Douglas Coupland</p>
+      <p class="pages">275 pages</p>
+      <div class="tags"><span class="year">2007</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Roger, divorced and fifty-ish, works at a Staples and writes journal entries in the voice of Bethany, the goth twenty-something on the next till. She finds the notebook. What follows is a correspondence, plus the terrible novel Roger is writing inside it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|contemporary">
+    <img class="cover" src="covers/all-families-are-psychotic.jpg" alt="Cover of All Families are Psychotic" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>All Families are Psychotic</h2>
+      <p class="author">Douglas Coupland</p>
+      <p class="pages">288 pages</p>
+      <div class="tags"><span class="year">2001</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Drummond family converges on Florida to watch their daughter, a one-armed astronaut, launch. Within days there is a kidnapping, a black-market fetus, several guns and multiple HIV diagnoses, delivered at farce speed and with real tenderness underneath.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|fantasy|literary|thriller">
+    <img class="cover" src="covers/the-city-of-mirrors.jpg" alt="Cover of The City of Mirrors" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The City of Mirrors</h2>
+      <p class="author">Justin Cronin</p>
+      <p class="pages">624 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Passage trilogy closes. The virals have been quiet for twenty years and the settlements have started to believe it, which is when Zero, the first of them, finally gets to explain himself, at length, as a love story. Then the last siege.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|nonfiction|race">
+    <img class="cover" src="covers/old-futures-speculative-fiction-and-queer-possib.jpg" alt="Cover of Old Futures: Speculative Fiction and Queer Possibility" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Old Futures: Speculative Fiction and Queer Possibility</h2>
+      <p class="author">Alexis Lothian</p>
+      <p class="pages">352 pages</p>
+      <div class="tags"><span class="year">2018</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-race" data-filter="race">race</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">An academic study of the futures that got discarded: feminist utopias, Black speculative writing, queer fan fiction, early twentieth-century eugenic fantasies. Lothian reads what a culture imagines as evidence of what it intends.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|nonfiction|essays">
+    <img class="cover" src="covers/sex-drugs-and-cocoa-puffs-a-low-culture-manifest.jpg" alt="Cover of Sex, Drugs, and Cocoa Puffs: A Low Culture Manifesto" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Sex, Drugs, and Cocoa Puffs: A Low Culture Manifesto</h2>
+      <p class="author">Chuck Klosterman</p>
+      <p class="pages">253 pages</p>
+      <div class="tags"><span class="year">2003</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-essays" data-filter="essays">essays</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Essays taking cereal, Saved by the Bell, Pamela Anderson, tribute bands and the Sims as seriously as anyone has, on the premise that pop culture is where people actually learn how to think about love and morality. Very much of its decade, and still funny.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|memoir|true crime">
+    <img class="cover" src="covers/dancing-with-the-octopus-a-memoir-of-a-crime.jpg" alt="Cover of Dancing with the Octopus: A Memoir of a Crime" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Dancing with the Octopus: A Memoir of a Crime</h2>
+      <p class="author">Debora Harding</p>
+      <p class="pages">384 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-memoir" data-filter="memoir">memoir</button><button class="tag g-true-crime" data-filter="true crime">true crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">At fourteen Harding was abducted at knifepoint from a church car park, raped, and left tied in a rail yard in a blizzard. Decades later she goes looking for the man who did it, and finds the harder subject is her mother, whose cruelty the family never named.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|classics|contemporary">
+    <img class="cover" src="covers/a-confederacy-of-dunces.jpg" alt="Cover of A Confederacy of Dunces" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>A Confederacy of Dunces</h2>
+      <p class="author">John Kennedy Toole</p>
+      <p class="pages">394 pages</p>
+      <div class="tags"><span class="year">1980</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-classics" data-filter="classics">classics</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Ignatius J. Reilly, thirty, medievalist, valve-afflicted, living with his mother in New Orleans, is forced to seek employment and inflicts himself on the city instead. Published eleven years after Toole's suicide and won the Pulitzer.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|fantasy|romance">
+    <img class="cover" src="covers/bound-to-the-battle-god.jpg" alt="Cover of Bound to the Battle God" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Bound to the Battle God</h2>
+      <p class="author">Ruby Dixon</p>
+      <p class="pages">656 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-romance" data-filter="romance">romance</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Aspect and Anchor book one. Piety is a temple acolyte who botches a ritual and finds herself soul-bound to Kassam, the god of war, which means sharing a body, a mind and a very bad temper while they try to undo it. Fantasy romance with Dixon's usual banter and considerable length.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|literary|magical realism">
+    <img class="cover" src="covers/all-s-well.jpg" alt="Cover of All's Well" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>All's Well</h2>
+      <p class="author">Mona Awad</p>
+      <p class="pages">368 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-magical-realism" data-filter="magical realism">magical realism</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Miranda, a former actress with chronic pain nobody believes in, teaches theatre and is losing a battle to stage All's Well That Ends Well instead of Macbeth. Then three strange men in a bar transfer her suffering to everyone doubting it. Awad on pain, gaslighting and the pleasure of revenge.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|graphic novel|psychology|sociology">
+    <img class="cover" src="covers/seek-you-a-journey-through-american-loneliness.jpg" alt="Cover of Seek You: A Journey Through American Loneliness" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Seek You: A Journey Through American Loneliness</h2>
+      <p class="author">Kristen Radtke</p>
+      <p class="pages">352 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-graphic-novel" data-filter="graphic novel">graphic novel</button><button class="tag g-psychology" data-filter="psychology">psychology</button><button class="tag g-sociology" data-filter="sociology">sociology</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">An illustrated essay on loneliness as an American condition, moving through Harry Harlow's monkey experiments, laugh tracks, gun ownership, the loneliness of marriage and Radtke's own family. The art carries the argument as much as the text.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|history|lgbtqia+|true crime">
+    <img class="cover" src="covers/last-call-a-true-story-of-love-lust-and-murder-i.jpg" alt="Cover of Last Call: A True Story of Love, Lust, and Murder in Queer New York" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Last Call: A True Story of Love, Lust, and Murder in Queer New York</h2>
+      <p class="author">Elon Green</p>
+      <p class="pages">255 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-history" data-filter="history">history</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-true-crime" data-filter="true crime">true crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A serial killer picked up middle-aged men from Manhattan piano bars in the early nineties and left them dismembered along highways, and almost nobody covered it. Green gives each victim a full life first, which is the point of the book.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|lgbtqia+|literary">
+    <img class="cover" src="covers/detransition-baby.jpg" alt="Cover of Detransition, Baby" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Detransition, Baby</h2>
+      <p class="author">Torrey Peters</p>
+      <p class="pages">340 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Reese wants a baby. Her ex Amy has detransitioned back to Ames, got his cis boss Katrina pregnant, and proposes the three of them raise it together. Sharp, unsentimental, and written entirely for trans women rather than about them.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|dystopian|literary|science fiction">
+    <img class="cover" src="covers/the-school-for-good-mothers.jpg" alt="Cover of The School for Good Mothers" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The School for Good Mothers</h2>
+      <p class="author">Jessamine Chan</p>
+      <p class="pages">336 pages</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Frida leaves her toddler alone for two hours on one bad day and loses her to a state programme that retrains mothers using android dolls and metrics. The satire is thin enough over current family policing to be genuinely upsetting.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|historical">
+    <img class="cover" src="covers/one-thousand-white-women-the-journals-of-may-dod.jpg" alt="Cover of One Thousand White Women: The Journals of May Dodd" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>One Thousand White Women: The Journals of May Dodd</h2>
+      <p class="author">Jim Fergus</p>
+      <p class="pages">304 pages</p>
+      <div class="tags"><span class="year">1998</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Built on a real 1854 proposal, that the Cheyenne requested a thousand white women as brides to assimilate their peoples, and the counterfactual that the US agreed and recruited from asylums and prisons. May Dodd's journals run from the trains west to Sand Creek.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|historical|religion">
+    <img class="cover" src="covers/the-red-tent.jpg" alt="Cover of The Red Tent" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Red Tent</h2>
+      <p class="author">Anita Diamant</p>
+      <p class="pages">324 pages</p>
+      <div class="tags"><span class="year">1997</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-religion" data-filter="religion">religion</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Dinah gets one violent verse in Genesis and no voice; Diamant gives her a life, told through the women's tent where the wives of Jacob menstruate, birth and gossip. The Shechem episode arrives as something entirely other than what scripture says it was.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|literary">
+    <img class="cover" src="covers/such-a-fun-age.jpg" alt="Cover of Such a Fun Age" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Such a Fun Age</h2>
+      <p class="author">Kiley Reid</p>
+      <p class="pages">305 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Emira, twenty-five and Black, is accused of kidnapping the white toddler she babysits while at a supermarket at midnight, and a bystander films it. Her employer Alix decides to make it right, which is where the trouble actually starts. Excruciating on white good intentions.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|historical|romance">
+    <img class="cover" src="covers/the-other-boleyn-girl.jpg" alt="Cover of The Other Boleyn Girl" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Other Boleyn Girl</h2>
+      <p class="author">Philippa Gregory</p>
+      <p class="pages">664 pages</p>
+      <div class="tags"><span class="year">2001</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-romance" data-filter="romance">romance</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Mary Boleyn is Henry VIII's mistress first, and then watches her family reload and aim her sister at him. Narrated by the sister who survived, which turns the Tudor court into a family business trading daughters at the going rate.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary">
+    <img class="cover" src="covers/olga-dies-dreaming.jpg" alt="Cover of Olga Dies Dreaming" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Olga Dies Dreaming</h2>
+      <p class="author">Xochitl Gonzalez</p>
+      <p class="pages">373 pages</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Olga plans weddings for Manhattan billionaires and her brother is a closeted congressman, and their mother, who left to join the Puerto Rican independence movement, writes them letters full of judgement. Then Hurricane Maria hits. Family novel with the politics fully on the page.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|literary|mystery|thriller">
+    <img class="cover" src="covers/the-secret-history.jpg" alt="Cover of The Secret History" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Secret History</h2>
+      <p class="author">Donna Tartt</p>
+      <p class="pages">559 pages</p>
+      <div class="tags"><span class="year">1992</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Richard talks his way into an elite Greek class at a Vermont college and into the group around it, who have already done something unforgivable and will do worse to protect it. The murder is on page one; the dread is entirely about consequence. The gold standard of the form.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|feminism|memoir|true crime">
+    <img class="cover" src="covers/we-keep-the-dead-close.jpg" alt="Cover of We Keep the Dead Close" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>We Keep the Dead Close</h2>
+      <p class="author">Becky Cooper</p>
+      <p class="pages">499 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-feminism" data-filter="feminism">feminism</button><button class="tag g-memoir" data-filter="memoir">memoir</button><button class="tag g-true-crime" data-filter="true crime">true crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A Harvard archaeology student was killed in her apartment in 1969 and the rumour said a professor did it. Cooper spends ten years on the story, and the book becomes about the institution's protection of its own and her own difficulty letting go.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|literary">
+    <img class="cover" src="covers/my-dark-vanessa.jpg" alt="Cover of My Dark Vanessa" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>My Dark Vanessa</h2>
+      <p class="author">Kate Elizabeth Russell</p>
+      <p class="pages">372 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">At fifteen Vanessa was groomed by her boarding school English teacher; at thirty-two, with other women coming forward, she is still defending it as the great love of her life. The narration never breaks from her insistence, which is exactly the horror.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|fantasy|mystery|science fiction">
+    <img class="cover" src="covers/the-end-of-mr-y.jpg" alt="Cover of The End of Mr. Y" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The End of Mr. Y</h2>
+      <p class="author">Scarlett Thomas</p>
+      <p class="pages">402 pages</p>
+      <div class="tags"><span class="year">2006</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A PhD student finds a cursed nineteenth-century novel that nobody who reads it survives, follows its recipe, and ends up in the Troposphere, a space made of consciousness where you can travel through other minds. Thought experiments and theology at thriller pace.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|literary|thriller">
+    <img class="cover" src="covers/i-m-thinking-of-ending-things.jpg" alt="Cover of I'm Thinking of Ending Things" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>I'm Thinking of Ending Things</h2>
+      <p class="author">Iain Reid</p>
+      <p class="pages">183 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A woman drives with her new boyfriend to his parents' remote farm, planning to break up with him, and the visit goes wrong in ways that keep sliding sideways. Short, claustrophobic, and the ending recontextualises every page.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|dystopian|literary">
+    <img class="cover" src="covers/station-eleven.jpg" alt="Cover of Station Eleven" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Station Eleven</h2>
+      <p class="author">Emily St. John Mandel</p>
+      <p class="pages">333 pages</p>
+      <div class="tags"><span class="year">2014</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A flu kills most of the world during a production of King Lear, and twenty years later a travelling company performs Shakespeare around the Great Lakes because survival is insufficient. Moves back and forth around a comic book and the people it touched.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|dystopian|horror|science fiction|thriller">
+    <img class="cover" src="covers/the-passage.jpg" alt="Cover of The Passage" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Passage</h2>
+      <p class="author">Justin Cronin</p>
+      <p class="pages">784 pages</p>
+      <div class="tags"><span class="year">2010</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A military virus trial produces twelve immortal carriers, they get out, and America falls in about a hundred pages. Then a jump of a century to a walled colony in California running out of light, and a girl who does not age. Vampire apocalypse written with total literary seriousness.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|romance|science fiction">
+    <img class="cover" src="covers/in-the-quick.jpg" alt="Cover of In the Quick" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>In the Quick</h2>
+      <p class="author">Kate Hope Day</p>
+      <p class="pages">272 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-romance" data-filter="romance">romance</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">June is a prodigy raised by an uncle who designed the fuel cells for a lost spacecraft, and she works her way into the space programme convinced the missing crew is alive. Reworks Jane Eyre as an engineering story about obsession.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|memoir|technology">
+    <img class="cover" src="covers/uncanny-valley.jpg" alt="Cover of Uncanny Valley" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Uncanny Valley</h2>
+      <p class="author">Anna Wiener</p>
+      <p class="pages">288 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-memoir" data-filter="memoir">memoir</button><button class="tag g-technology" data-filter="technology">technology</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Wiener leaves New York publishing for startup customer support in San Francisco in the mid-2010s, and reports back on the analytics company, the equity, the vests, the men, and the growing sense that the whole apparatus was aimed at nothing worth building.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|contemporary|short stories">
+    <img class="cover" src="covers/raised-in-captivity-fictional-nonfiction.jpg" alt="Cover of Raised in Captivity: Fictional Nonfiction" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Raised in Captivity: Fictional Nonfiction</h2>
+      <p class="author">Chuck Klosterman</p>
+      <p class="pages">320 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Very short stories built as thought experiments: a puma in an aeroplane lavatory, a man who can hear a sound nobody else can, a cure for cruelty. Klosterman's essayistic instinct applied to fiction, ending most pieces one beat before the resolution.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|lgbtqia+|thriller">
+    <img class="cover" src="covers/the-cabin-at-the-end-of-the-world.jpg" alt="Cover of The Cabin at the End of the World" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Cabin at the End of the World</h2>
+      <p class="author">Paul Tremblay</p>
+      <p class="pages">272 pages</p>
+      <div class="tags"><span class="year">2018</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two dads and their daughter are at a lake cabin when four strangers arrive and explain, apologetically, that the family must choose one of themselves to kill or the world ends. Tremblay never confirms whether they are right, and the book is unbearable for it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|nonfiction|biography|history">
+    <img class="cover" src="covers/the-indifferent-stars-above-the-harrowing-saga-o.jpg" alt="Cover of The Indifferent Stars Above: The Harrowing Saga of a Donner Party Bride" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Indifferent Stars Above: The Harrowing Saga of a Donner Party Bride</h2>
+      <p class="author">Daniel James Brown</p>
+      <p class="pages">337 pages</p>
+      <div class="tags"><span class="year">2009</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-biography" data-filter="biography">biography</button><button class="tag g-history" data-filter="history">history</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Donner Party through Sarah Graves, married weeks before departure, and Brown supplies the physiology to go with it: what starvation does in what order, how long a body lasts in snow. Clear-eyed rather than lurid, which makes it worse.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|science fiction|thriller">
+    <img class="cover" src="covers/dark-matter.jpg" alt="Cover of Dark Matter" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Dark Matter</h2>
+      <p class="author">Blake Crouch</p>
+      <p class="pages">342 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A physics professor is abducted, drugged, and wakes in a version of his life where he made the other choice, celebrated and childless. Getting home means navigating a box that opens onto every branch of every decision. Ruthlessly paced.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|science fiction|thriller">
+    <img class="cover" src="covers/recursion.jpg" alt="Cover of Recursion" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Recursion</h2>
+      <p class="author">Blake Crouch</p>
+      <p class="pages">329 pages</p>
+      <div class="tags"><span class="year">2019</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">People are developing memories of lives they never lived, and a NYPD detective and a neuroscientist working on memory preservation converge on why. Escalates from a mystery into something structurally reckless, and Crouch commits to the consequences.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|romance|science fiction">
+    <img class="cover" src="covers/homebound.jpg" alt="Cover of Homebound" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Homebound</h2>
+      <p class="author">Lydia Hope</p>
+      <p class="pages">539 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-romance" data-filter="romance">romance</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Earth is in decline and anyone who could leave has. Gemma serves meals at a prison and gets reassigned to the alien ward, where Simon, a Rix left starving in isolation, despises humans and wants only to get off the planet before the scientist hunting his genes catches up. She nurses him back anyway.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|literary">
+    <img class="cover" src="covers/the-rabbit-hutch.jpg" alt="Cover of The Rabbit Hutch" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Rabbit Hutch</h2>
+      <p class="author">Tess Gunty</p>
+      <p class="pages">338 pages</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A decaying apartment block in a dying Indiana factory town, and Blandine, eighteen, out of foster care, reading mystics and planning something. Structurally restless, mixing obituary comment threads and stage directions, and it earned the National Book Award.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|romance|science fiction">
+    <img class="cover" src="covers/the-last-hour-of-gann.jpg" alt="Cover of The Last Hour of Gann" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>The Last Hour of Gann</h2>
+      <p class="author">R. Lee Smith</p>
+      <p class="pages">706 pages</p>
+      <div class="tags"><span class="year">2013</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-romance" data-filter="romance">romance</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Amber boards Earth's first colony ship and wakes in its wreck on an unmapped world with no rescue coming. The survivors are found by Meoraq, a holy warrior of a reptilian people, sworn to judgement and on the last pilgrimage of his free life. Brutal and unsparing about what survival costs.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|fantasy|literary|speculative fiction">
+    <img class="cover" src="covers/piranesi.jpg" alt="Cover of Piranesi" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Piranesi</h2>
+      <p class="author">Susanna Clarke</p>
+      <p class="pages">245 pages</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-speculative-fiction" data-filter="speculative fiction">speculative fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A man lives in an infinite house of statues and tides, keeps meticulous journals, and knows there are fifteen people in the world, thirteen of them skeletons. He is content. The book is the slow arrival of the knowledge that will end that.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|thriller">
+    <img class="cover" src="covers/you.jpg" alt="Cover of You" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>You</h2>
+      <p class="author">Caroline Kepnes</p>
+      <p class="pages">432 pages</p>
+      <div class="tags"><span class="year">2014</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Joe works in a bookshop, meets Beck, and narrates his stalking of her directly to her in second person, reasonable and charming and appalling throughout. The device is the whole trick and it works because he keeps almost convincing you.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|young adult">
+    <img class="cover" src="covers/youth-in-revolt.jpg" alt="Cover of Youth in Revolt" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Youth in Revolt</h2>
+      <p class="author">C.D. Payne</p>
+      <p class="pages">512 pages</p>
+      <div class="tags"><span class="year">1993</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-young-adult" data-filter="young adult">young adult</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The journals of Nick Twisp, fourteen, pretentious, relentlessly horny and increasingly criminal in pursuit of Sheeni Saunders. Escalates from teenage grievance to arson and multi-state flight without ever losing the diary voice.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|thriller">
+    <img class="cover" src="covers/fantasticland.jpg" alt="Cover of Fantasticland" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Fantasticland</h2>
+      <p class="author">Mike Bockoven</p>
+      <p class="pages">272 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A hurricane cuts off a Florida theme park with its staff inside, and five weeks later they are extracted having split into warring tribes by costume department. Told as an oral history of interviews after the fact, which keeps the reader assembling it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|horror|lgbtqia+|literary">
+    <img class="cover" src="covers/tell-me-i-m-worthless.jpg" alt="Cover of Tell Me I'm Worthless" loading="lazy" onerror="this.replaceWith(placeholder(this))">
+    <div>
+      <h2>Tell Me I'm Worthless</h2>
+      <p class="author">Alison Rumfitt</p>
+      <p class="pages">264 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Three years ago Alice and Ila went into a derelict house and came out with incompatible accounts of what happened. The house is fascism, literally and not metaphorically, and it wants them back. Furious, formally aggressive, and explicit about transphobia as a haunting.</div>
+    </div>
+  </article>
+
+</main>
+
+<p class="empty" id="empty" hidden>No books match that combination.</p>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-top">
+      <img class="modal-cover" id="modal-cover" src="" alt="">
+      <div>
+        <h3 id="modal-title"></h3>
+        <p class="modal-author" id="modal-author"></p>
+        <p class="modal-meta" id="modal-meta"></p>
+      </div>
+    </div>
+    <p class="modal-desc" id="modal-desc"></p>
+    <button class="modal-close" id="modal-close">Close</button>
+  </div>
+</div>
+
+<script>
+  function placeholder(img) {
+    var d = document.createElement('div');
+    d.className = 'cover cover-blank';
+    d.setAttribute('aria-hidden', 'true');
+    var t = (img.getAttribute('alt') || '').replace('Cover of ', '').split(' ');
+    d.textContent = ((t[0] || '')[0] || '') + ((t[1] || '')[0] || '');
+    return d;
+  }
+
+  (function () {
+    var active = [];
+    var books = Array.prototype.slice.call(document.querySelectorAll('.book'));
+    var legendChips = Array.prototype.slice.call(document.querySelectorAll('#legend .tag'));
+    var countEl = document.getElementById('count');
+    var clearEl = document.getElementById('clear');
+    var emptyEl = document.getElementById('empty');
+
+    var overlay = document.getElementById('overlay');
+    var mCover = document.getElementById('modal-cover');
+    var mTitle = document.getElementById('modal-title');
+    var mAuthor = document.getElementById('modal-author');
+    var mMeta = document.getElementById('modal-meta');
+    var mDesc = document.getElementById('modal-desc');
+    var mClose = document.getElementById('modal-close');
+    var lastFocus = null;
+
+    function apply() {
+      var shown = 0;
+      books.forEach(function (book) {
+        var tags = (book.getAttribute('data-tags') || '').split('|');
+        var match = active.every(function (f) { return tags.indexOf(f) !== -1; });
+        book.hidden = !match;
+        if (match) shown++;
+      });
+      countEl.textContent = shown;
+      clearEl.hidden = active.length === 0;
+      emptyEl.hidden = shown !== 0;
+      legendChips.forEach(function (chip) {
+        var on = active.indexOf(chip.getAttribute('data-filter')) !== -1;
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    function openModal(book) {
+      var cover = book.querySelector('img.cover');
+      var desc = book.querySelector('.desc-source');
+      if (cover) {
+        mCover.style.display = '';
+        mCover.src = cover.getAttribute('src');
+        mCover.alt = cover.getAttribute('alt');
+      } else {
+        mCover.style.display = 'none';
+      }
+      mTitle.textContent = book.querySelector('h2').textContent;
+      mAuthor.textContent = book.querySelector('.author').textContent;
+      mMeta.textContent = book.querySelector('.pages').textContent;
+      mDesc.textContent = desc ? desc.textContent.trim() : '';
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      mClose.focus();
+    }
+
+    function closeModal() {
+      overlay.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    document.addEventListener('click', function (e) {
+      var target = e.target;
+      if (target === mClose || target === overlay) { closeModal(); return; }
+      if (target.id === 'clear') { active = []; apply(); return; }
+      if (target.classList && target.classList.contains('more')) {
+        var card = target.closest('.book');
+        if (card) openModal(card);
+        return;
+      }
+      if (target.classList && target.classList.contains('tag')) {
+        var value = target.getAttribute('data-filter');
+        if (!value) return;
+        var i = active.indexOf(value);
+        if (i === -1) { active.push(value); } else { active.splice(i, 1); }
+        apply();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closeModal();
+    });
+
+    apply();
+  })();
+</script>
+
+</body>
+</html>
