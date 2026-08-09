@@ -212,33 +212,9 @@
     padding: 1.1rem 1.15rem 1.2rem;
     margin-bottom: 1.1rem;
     break-inside: avoid;
-    display: flex;
-    gap: 0.9rem;
-    align-items: flex-start;
   }
 
   .book[hidden] { display: none; }
-
-  .cover {
-    width: 66px;
-    height: auto;
-    border-radius: 3px;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.45);
-  }
-
-  .cover-blank {
-    height: 99px;
-    background: linear-gradient(150deg, #2b2932, #232128);
-    border: 1px solid rgba(255,255,255,0.07);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-size: 1.15rem;
-    color: rgba(236,234,228,0.32);
-    letter-spacing: 0.05em;
-  }
 
   .book h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.12rem; line-height: 1.25; }
 
@@ -298,10 +274,6 @@
     padding: 1.8rem 1.9rem 2rem;
     box-shadow: 0 24px 60px rgba(0,0,0,0.6);
   }
-
-  .modal-top { display: flex; gap: 1.1rem; align-items: flex-start; }
-
-  .modal-cover { width: 92px; border-radius: 4px; flex-shrink: 0; box-shadow: 0 3px 12px rgba(0,0,0,0.5); }
 
   .modal h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem; line-height: 1.2; }
 
@@ -395,31 +367,28 @@
 <main class="shelf" id="shelf">
 
   <article class="book" data-tags="2020s|fiction|literary|thriller">
-    <img class="cover" src="covers/yesteryear.jpg" alt="Cover of Yesteryear" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Yesteryear</h2>
       <p class="author">Caro Claire Burke</p>
       <p class="pages">391 pages</p>
       <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
       <button class="more">Description</button>
-      <div class="desc-source">Dark, mysterious and tense, at a medium pace. A 2026 HarperCollins literary thriller. Blurb still to be written.</div>
+      <div class="desc-source">Dark, mysterious and tense, at a medium pace. A 2026 HarperCollins literary thriller.</div>
     </div>
   </article>
 
   <article class="book" data-tags="2020s|fiction|horror|mystery|thriller">
-    <img class="cover" src="covers/strange-buildings.jpg" alt="Cover of Strange Buildings" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Strange Buildings</h2>
       <p class="author">Uketsu, trans. Jim Rion</p>
       <p class="pages">382 pages</p>
       <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
       <button class="more">Description</button>
-      <div class="desc-source">Eleven buildings, one terrible secret. From the masked Japanese author whose mysteries are assembled out of architectural floor plans, where the horror is in what the layout implies. Blurb still to be written.</div>
+      <div class="desc-source">Eleven buildings, one terrible secret. From the masked Japanese author whose mysteries are assembled out of architectural floor plans, where the horror is in what the layout implies.</div>
     </div>
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|religion">
-    <img class="cover" src="covers/the-final-testament-of-the-holy-bible.jpg" alt="Cover of The Final Testament of the Holy Bible" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Final Testament of the Holy Bible</h2>
       <p class="author">James Frey</p>
@@ -431,7 +400,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|horror|lgbtqia+|thriller">
-    <img class="cover" src="covers/we-used-to-live-here.jpg" alt="Cover of We Used to Live Here" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>We Used to Live Here</h2>
       <p class="author">Marcus Kliewer</p>
@@ -443,7 +411,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|literary">
-    <img class="cover" src="covers/one-s-company.jpg" alt="Cover of One's Company" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>One's Company</h2>
       <p class="author">Ashley Hutson</p>
@@ -455,7 +422,6 @@
   </article>
 
   <article class="book" data-tags="2010s|nonfiction|history|travel">
-    <img class="cover" src="covers/the-lost-city-of-the-monkey-god.jpg" alt="Cover of The Lost City of the Monkey God" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Lost City of the Monkey God</h2>
       <p class="author">Douglas Preston</p>
@@ -467,7 +433,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|horror|literary|thriller">
-    <img class="cover" src="covers/american-psycho.jpg" alt="Cover of American Psycho" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>American Psycho</h2>
       <p class="author">Bret Easton Ellis</p>
@@ -479,7 +444,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|literary">
-    <img class="cover" src="covers/remarkably-bright-creatures.jpg" alt="Cover of Remarkably Bright Creatures" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Remarkably Bright Creatures</h2>
       <p class="author">Shelby Van Pelt</p>
@@ -491,7 +455,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|horror|literary|magical realism">
-    <img class="cover" src="covers/we-love-you-bunny.jpg" alt="Cover of We Love You, Bunny" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>We Love You, Bunny</h2>
       <p class="author">Mona Awad</p>
@@ -503,7 +466,6 @@
   </article>
 
   <article class="book" data-tags="1970s|fiction|dystopian|horror|thriller">
-    <img class="cover" src="covers/the-long-walk.jpg" alt="Cover of The Long Walk" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Long Walk</h2>
       <p class="author">Richard Bachman / Stephen King</p>
@@ -515,7 +477,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|dystopian|literary">
-    <img class="cover" src="covers/i-who-have-never-known-men.jpg" alt="Cover of I Who Have Never Known Men" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>I Who Have Never Known Men</h2>
       <p class="author">Jacqueline Harpman</p>
@@ -527,7 +488,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|dystopian|literary|thriller">
-    <img class="cover" src="covers/the-compound.jpg" alt="Cover of The Compound" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Compound</h2>
       <p class="author">Aisling Rawle</p>
@@ -539,7 +499,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|literary">
-    <img class="cover" src="covers/banal-nightmare.jpg" alt="Cover of Banal Nightmare" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Banal Nightmare</h2>
       <p class="author">Halle Butler</p>
@@ -551,7 +510,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|science fiction">
-    <img class="cover" src="covers/children-of-time.jpg" alt="Cover of Children of Time" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Children of Time</h2>
       <p class="author">Adrian Tchaikovsky</p>
@@ -563,7 +521,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|literary|romance">
-    <img class="cover" src="covers/sky-daddy.jpg" alt="Cover of Sky Daddy" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Sky Daddy</h2>
       <p class="author">Kate Folk</p>
@@ -575,7 +532,6 @@
   </article>
 
   <article class="book" data-tags="1980s|fiction|historical">
-    <img class="cover" src="covers/the-clan-of-the-cave-bear.jpg" alt="Cover of The Clan of the Cave Bear" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Clan of the Cave Bear</h2>
       <p class="author">Jean M. Auel</p>
@@ -587,7 +543,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|literary|short stories">
-    <img class="cover" src="covers/rejection.jpg" alt="Cover of Rejection" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Rejection</h2>
       <p class="author">Tony Tulathimutte</p>
@@ -599,7 +554,6 @@
   </article>
 
   <article class="book" data-tags="1980s|fiction|horror">
-    <img class="cover" src="covers/swan-song.jpg" alt="Cover of Swan Song" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Swan Song</h2>
       <p class="author">Robert R. McCammon</p>
@@ -611,7 +565,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|lgbtqia+|literary">
-    <img class="cover" src="covers/all-fours.jpg" alt="Cover of All Fours" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>All Fours</h2>
       <p class="author">Miranda July</p>
@@ -623,7 +576,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|contemporary|lgbtqia+">
-    <img class="cover" src="covers/a-home-at-the-end-of-the-world.jpg" alt="Cover of A Home at the End of the World" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>A Home at the End of the World</h2>
       <p class="author">Michael Cunningham</p>
@@ -635,7 +587,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|fantasy|science fiction">
-    <img class="cover" src="covers/the-leftovers.jpg" alt="Cover of The Leftovers" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Leftovers</h2>
       <p class="author">Tom Perrotta</p>
@@ -647,7 +598,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|contemporary|historical">
-    <img class="cover" src="covers/little-bee.jpg" alt="Cover of Little Bee" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Little Bee</h2>
       <p class="author">Chris Cleave</p>
@@ -659,7 +609,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|literary">
-    <img class="cover" src="covers/the-interestings.jpg" alt="Cover of The Interestings" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Interestings</h2>
       <p class="author">Meg Wolitzer</p>
@@ -671,7 +620,6 @@
   </article>
 
   <article class="book" data-tags="2000s|nonfiction|biography|memoir">
-    <img class="cover" src="covers/superstud-or-how-i-became-a-24-year-old-virgin.jpg" alt="Cover of Superstud: Or How I Became a 24-Year-Old Virgin" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Superstud: Or How I Became a 24-Year-Old Virgin</h2>
       <p class="author">Paul Feig</p>
@@ -683,7 +631,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|literary">
-    <img class="cover" src="covers/a-visit-from-the-goon-squad.jpg" alt="Cover of A Visit from the Goon Squad" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>A Visit from the Goon Squad</h2>
       <p class="author">Jennifer Egan</p>
@@ -695,7 +642,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|contemporary">
-    <img class="cover" src="covers/bright-shiny-morning.jpg" alt="Cover of Bright Shiny Morning" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Bright Shiny Morning</h2>
       <p class="author">James Frey</p>
@@ -707,7 +653,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|literary|magical realism">
-    <img class="cover" src="covers/the-pisces.jpg" alt="Cover of The Pisces" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Pisces</h2>
       <p class="author">Melissa Broder</p>
@@ -719,7 +664,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|historical|literary">
-    <img class="cover" src="covers/the-invention-of-wings.jpg" alt="Cover of The Invention of Wings" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Invention of Wings</h2>
       <p class="author">Sue Monk Kidd</p>
@@ -731,7 +675,6 @@
   </article>
 
   <article class="book" data-tags="1960s|fiction|classics|middle grade|mystery">
-    <img class="cover" src="covers/from-the-mixed-up-files-of-mrs-basil-e-frankweil.jpg" alt="Cover of From the Mixed-Up Files of Mrs. Basil E. Frankweiler" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>From the Mixed-Up Files of Mrs. Basil E. Frankweiler</h2>
       <p class="author">E.L. Konigsburg</p>
@@ -743,7 +686,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|dystopian|fantasy|literary|thriller">
-    <img class="cover" src="covers/the-twelve.jpg" alt="Cover of The Twelve" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Twelve</h2>
       <p class="author">Justin Cronin</p>
@@ -755,7 +697,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|romance|science fiction">
-    <img class="cover" src="covers/ice-planet-barbarians.jpg" alt="Cover of Ice Planet Barbarians" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Ice Planet Barbarians</h2>
       <p class="author">Ruby Dixon</p>
@@ -767,7 +708,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|horror|short stories">
-    <img class="cover" src="covers/cat-person-and-other-stories.jpg" alt="Cover of Cat Person and Other Stories" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Cat Person and Other Stories</h2>
       <p class="author">Kristen Roupenian</p>
@@ -779,7 +719,6 @@
   </article>
 
   <article class="book" data-tags="2010s|nonfiction|lgbtqia+|memoir">
-    <img class="cover" src="covers/in-the-dream-house.jpg" alt="Cover of In the Dream House" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>In the Dream House</h2>
       <p class="author">Carmen Maria Machado</p>
@@ -791,7 +730,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|literary|science fiction|short stories">
-    <img class="cover" src="covers/exhalation.jpg" alt="Cover of Exhalation" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Exhalation</h2>
       <p class="author">Ted Chiang</p>
@@ -803,7 +741,6 @@
   </article>
 
   <article class="book" data-tags="2010s|nonfiction|essays|feminism">
-    <img class="cover" src="covers/trick-mirror-reflections-on-self-delusion.jpg" alt="Cover of Trick Mirror: Reflections on Self-Delusion" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Trick Mirror: Reflections on Self-Delusion</h2>
       <p class="author">Jia Tolentino</p>
@@ -815,7 +752,6 @@
   </article>
 
   <article class="book" data-tags="2000s|nonfiction|autobiography|biography|memoir|music">
-    <img class="cover" src="covers/the-dirt-confessions-of-the-world-s-most-notorio.jpg" alt="Cover of The Dirt: Confessions of the World's Most Notorious Rock Band" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Dirt: Confessions of the World's Most Notorious Rock Band</h2>
       <p class="author">Tommy Lee, Nikki Sixx, Vince Neil</p>
@@ -827,7 +763,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|dystopian|young adult">
-    <img class="cover" src="covers/the-hunger-games.jpg" alt="Cover of The Hunger Games" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Hunger Games</h2>
       <p class="author">Suzanne Collins</p>
@@ -839,7 +774,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|mystery|thriller">
-    <img class="cover" src="covers/gone-girl.jpg" alt="Cover of Gone Girl" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Gone Girl</h2>
       <p class="author">Gillian Flynn</p>
@@ -851,7 +785,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|contemporary">
-    <img class="cover" src="covers/microserfs.jpg" alt="Cover of Microserfs" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Microserfs</h2>
       <p class="author">Douglas Coupland</p>
@@ -863,7 +796,6 @@
   </article>
 
   <article class="book" data-tags="2010s|nonfiction|essays|self help">
-    <img class="cover" src="covers/how-to-be-a-person-in-the-world.jpg" alt="Cover of How to Be a Person in the World" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>How to Be a Person in the World</h2>
       <p class="author">Heather Havrilesky</p>
@@ -875,7 +807,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|horror|short stories">
-    <img class="cover" src="covers/haunted.jpg" alt="Cover of Haunted" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Haunted</h2>
       <p class="author">Chuck Palahniuk</p>
@@ -887,7 +818,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|crime">
-    <img class="cover" src="covers/tampa.jpg" alt="Cover of Tampa" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Tampa</h2>
       <p class="author">Alissa Nutting</p>
@@ -899,7 +829,6 @@
   </article>
 
   <article class="book" data-tags="1980s|fiction|classics|literary">
-    <img class="cover" src="covers/a-prayer-for-owen-meany.jpg" alt="Cover of A Prayer for Owen Meany" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>A Prayer for Owen Meany</h2>
       <p class="author">John Irving</p>
@@ -911,7 +840,6 @@
   </article>
 
   <article class="book" data-tags="1980s|fiction|fantasy|horror|thriller">
-    <img class="cover" src="covers/the-vampire-lestat.jpg" alt="Cover of The Vampire Lestat" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Vampire Lestat</h2>
       <p class="author">Anne Rice</p>
@@ -923,7 +851,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|fantasy">
-    <img class="cover" src="covers/lamb-the-gospel-according-to-biff-christ-s-child.jpg" alt="Cover of Lamb: The Gospel According to Biff, Christ's Childhood Pal" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Lamb: The Gospel According to Biff, Christ's Childhood Pal</h2>
       <p class="author">Christopher Moore</p>
@@ -935,7 +862,6 @@
   </article>
 
   <article class="book" data-tags="1960s|fiction|classics|dystopian|literary|science fiction">
-    <img class="cover" src="covers/a-clockwork-orange.jpg" alt="Cover of A Clockwork Orange" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>A Clockwork Orange</h2>
       <p class="author">Anthony Burgess</p>
@@ -947,11 +873,10 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|literary|thriller">
-    <img class="cover" src="covers/room.jpg" alt="Cover of Room" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Room</h2>
       <p class="author">Emma Donoghue</p>
-      <p class="pages">10h 46m audio</p>
+      <p class="pages">10h 46m</p>
       <div class="tags"><span class="year">2010</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
       <button class="more">Description</button>
       <div class="desc-source">Jack is five and Room is the whole world: eleven feet square, with Ma, and Old Nick who comes at night. Narrated entirely in Jack's voice, which makes the first half bearable and the second half, once there is an outside, much harder.</div>
@@ -959,7 +884,6 @@
   </article>
 
   <article class="book" data-tags="2000s|nonfiction|religion|true crime">
-    <img class="cover" src="covers/under-the-banner-of-heaven.jpg" alt="Cover of Under the Banner of Heaven" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Under the Banner of Heaven</h2>
       <p class="author">Jon Krakauer</p>
@@ -971,7 +895,6 @@
   </article>
 
   <article class="book" data-tags="2020s|nonfiction|true crime">
-    <img class="cover" src="covers/gone-at-midnight-the-mysterious-death-of-elisa-l.jpg" alt="Cover of Gone at Midnight: The Mysterious Death of Elisa Lam" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Gone at Midnight: The Mysterious Death of Elisa Lam</h2>
       <p class="author">Jake Anderson</p>
@@ -983,7 +906,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|literary|mystery">
-    <img class="cover" src="covers/disappearing-earth.jpg" alt="Cover of Disappearing Earth" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Disappearing Earth</h2>
       <p class="author">Julia Phillips</p>
@@ -995,7 +917,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|classics|dystopian|science fiction|young adult">
-    <img class="cover" src="covers/the-giver.jpg" alt="Cover of The Giver" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Giver</h2>
       <p class="author">Lois Lowry</p>
@@ -1007,7 +928,6 @@
   </article>
 
   <article class="book" data-tags="1970s|fiction|classics|fantasy|middle grade">
-    <img class="cover" src="covers/the-neverending-story.jpg" alt="Cover of The Neverending Story" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Neverending Story</h2>
       <p class="author">Michael Ende</p>
@@ -1019,7 +939,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|literary">
-    <img class="cover" src="covers/the-idiot.jpg" alt="Cover of The Idiot" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Idiot</h2>
       <p class="author">Elif Batuman</p>
@@ -1031,7 +950,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|contemporary">
-    <img class="cover" src="covers/the-gum-thief.jpg" alt="Cover of The Gum Thief" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Gum Thief</h2>
       <p class="author">Douglas Coupland</p>
@@ -1043,7 +961,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|contemporary">
-    <img class="cover" src="covers/all-families-are-psychotic.jpg" alt="Cover of All Families are Psychotic" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>All Families are Psychotic</h2>
       <p class="author">Douglas Coupland</p>
@@ -1055,7 +972,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|fantasy|literary|thriller">
-    <img class="cover" src="covers/the-city-of-mirrors.jpg" alt="Cover of The City of Mirrors" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The City of Mirrors</h2>
       <p class="author">Justin Cronin</p>
@@ -1067,7 +983,6 @@
   </article>
 
   <article class="book" data-tags="2010s|nonfiction|race">
-    <img class="cover" src="covers/old-futures-speculative-fiction-and-queer-possib.jpg" alt="Cover of Old Futures: Speculative Fiction and Queer Possibility" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Old Futures: Speculative Fiction and Queer Possibility</h2>
       <p class="author">Alexis Lothian</p>
@@ -1079,7 +994,6 @@
   </article>
 
   <article class="book" data-tags="2000s|nonfiction|essays">
-    <img class="cover" src="covers/sex-drugs-and-cocoa-puffs-a-low-culture-manifest.jpg" alt="Cover of Sex, Drugs, and Cocoa Puffs: A Low Culture Manifesto" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Sex, Drugs, and Cocoa Puffs: A Low Culture Manifesto</h2>
       <p class="author">Chuck Klosterman</p>
@@ -1091,7 +1005,6 @@
   </article>
 
   <article class="book" data-tags="2020s|nonfiction|memoir|true crime">
-    <img class="cover" src="covers/dancing-with-the-octopus-a-memoir-of-a-crime.jpg" alt="Cover of Dancing with the Octopus: A Memoir of a Crime" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Dancing with the Octopus: A Memoir of a Crime</h2>
       <p class="author">Debora Harding</p>
@@ -1103,7 +1016,6 @@
   </article>
 
   <article class="book" data-tags="1980s|fiction|classics|contemporary">
-    <img class="cover" src="covers/a-confederacy-of-dunces.jpg" alt="Cover of A Confederacy of Dunces" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>A Confederacy of Dunces</h2>
       <p class="author">John Kennedy Toole</p>
@@ -1115,7 +1027,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|fantasy|romance">
-    <img class="cover" src="covers/bound-to-the-battle-god.jpg" alt="Cover of Bound to the Battle God" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Bound to the Battle God</h2>
       <p class="author">Ruby Dixon</p>
@@ -1127,7 +1038,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|literary|magical realism">
-    <img class="cover" src="covers/all-s-well.jpg" alt="Cover of All's Well" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>All's Well</h2>
       <p class="author">Mona Awad</p>
@@ -1139,7 +1049,6 @@
   </article>
 
   <article class="book" data-tags="2020s|nonfiction|graphic novel|psychology|sociology">
-    <img class="cover" src="covers/seek-you-a-journey-through-american-loneliness.jpg" alt="Cover of Seek You: A Journey Through American Loneliness" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Seek You: A Journey Through American Loneliness</h2>
       <p class="author">Kristen Radtke</p>
@@ -1151,7 +1060,6 @@
   </article>
 
   <article class="book" data-tags="2020s|nonfiction|history|lgbtqia+|true crime">
-    <img class="cover" src="covers/last-call-a-true-story-of-love-lust-and-murder-i.jpg" alt="Cover of Last Call: A True Story of Love, Lust, and Murder in Queer New York" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Last Call: A True Story of Love, Lust, and Murder in Queer New York</h2>
       <p class="author">Elon Green</p>
@@ -1163,7 +1071,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|lgbtqia+|literary">
-    <img class="cover" src="covers/detransition-baby.jpg" alt="Cover of Detransition, Baby" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Detransition, Baby</h2>
       <p class="author">Torrey Peters</p>
@@ -1175,7 +1082,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|dystopian|literary|science fiction">
-    <img class="cover" src="covers/the-school-for-good-mothers.jpg" alt="Cover of The School for Good Mothers" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The School for Good Mothers</h2>
       <p class="author">Jessamine Chan</p>
@@ -1187,7 +1093,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|historical">
-    <img class="cover" src="covers/one-thousand-white-women-the-journals-of-may-dod.jpg" alt="Cover of One Thousand White Women: The Journals of May Dodd" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>One Thousand White Women: The Journals of May Dodd</h2>
       <p class="author">Jim Fergus</p>
@@ -1199,7 +1104,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|historical|religion">
-    <img class="cover" src="covers/the-red-tent.jpg" alt="Cover of The Red Tent" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Red Tent</h2>
       <p class="author">Anita Diamant</p>
@@ -1211,7 +1115,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|literary">
-    <img class="cover" src="covers/such-a-fun-age.jpg" alt="Cover of Such a Fun Age" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Such a Fun Age</h2>
       <p class="author">Kiley Reid</p>
@@ -1223,7 +1126,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|historical|romance">
-    <img class="cover" src="covers/the-other-boleyn-girl.jpg" alt="Cover of The Other Boleyn Girl" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Other Boleyn Girl</h2>
       <p class="author">Philippa Gregory</p>
@@ -1235,7 +1137,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary">
-    <img class="cover" src="covers/olga-dies-dreaming.jpg" alt="Cover of Olga Dies Dreaming" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Olga Dies Dreaming</h2>
       <p class="author">Xochitl Gonzalez</p>
@@ -1247,7 +1148,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|literary|mystery|thriller">
-    <img class="cover" src="covers/the-secret-history.jpg" alt="Cover of The Secret History" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Secret History</h2>
       <p class="author">Donna Tartt</p>
@@ -1259,7 +1159,6 @@
   </article>
 
   <article class="book" data-tags="2020s|nonfiction|feminism|memoir|true crime">
-    <img class="cover" src="covers/we-keep-the-dead-close.jpg" alt="Cover of We Keep the Dead Close" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>We Keep the Dead Close</h2>
       <p class="author">Becky Cooper</p>
@@ -1271,7 +1170,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|literary">
-    <img class="cover" src="covers/my-dark-vanessa.jpg" alt="Cover of My Dark Vanessa" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>My Dark Vanessa</h2>
       <p class="author">Kate Elizabeth Russell</p>
@@ -1283,7 +1181,6 @@
   </article>
 
   <article class="book" data-tags="2000s|fiction|fantasy|mystery|science fiction">
-    <img class="cover" src="covers/the-end-of-mr-y.jpg" alt="Cover of The End of Mr. Y" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The End of Mr. Y</h2>
       <p class="author">Scarlett Thomas</p>
@@ -1295,7 +1192,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|horror|literary|thriller">
-    <img class="cover" src="covers/i-m-thinking-of-ending-things.jpg" alt="Cover of I'm Thinking of Ending Things" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>I'm Thinking of Ending Things</h2>
       <p class="author">Iain Reid</p>
@@ -1307,7 +1203,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|dystopian|literary">
-    <img class="cover" src="covers/station-eleven.jpg" alt="Cover of Station Eleven" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Station Eleven</h2>
       <p class="author">Emily St. John Mandel</p>
@@ -1319,7 +1214,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|dystopian|horror|science fiction|thriller">
-    <img class="cover" src="covers/the-passage.jpg" alt="Cover of The Passage" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Passage</h2>
       <p class="author">Justin Cronin</p>
@@ -1331,7 +1225,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|romance|science fiction">
-    <img class="cover" src="covers/in-the-quick.jpg" alt="Cover of In the Quick" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>In the Quick</h2>
       <p class="author">Kate Hope Day</p>
@@ -1343,7 +1236,6 @@
   </article>
 
   <article class="book" data-tags="2020s|nonfiction|memoir|technology">
-    <img class="cover" src="covers/uncanny-valley.jpg" alt="Cover of Uncanny Valley" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Uncanny Valley</h2>
       <p class="author">Anna Wiener</p>
@@ -1355,7 +1247,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|contemporary|short stories">
-    <img class="cover" src="covers/raised-in-captivity-fictional-nonfiction.jpg" alt="Cover of Raised in Captivity: Fictional Nonfiction" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Raised in Captivity: Fictional Nonfiction</h2>
       <p class="author">Chuck Klosterman</p>
@@ -1367,7 +1258,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|horror|lgbtqia+|thriller">
-    <img class="cover" src="covers/the-cabin-at-the-end-of-the-world.jpg" alt="Cover of The Cabin at the End of the World" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Cabin at the End of the World</h2>
       <p class="author">Paul Tremblay</p>
@@ -1379,7 +1269,6 @@
   </article>
 
   <article class="book" data-tags="2000s|nonfiction|biography|history">
-    <img class="cover" src="covers/the-indifferent-stars-above-the-harrowing-saga-o.jpg" alt="Cover of The Indifferent Stars Above: The Harrowing Saga of a Donner Party Bride" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Indifferent Stars Above: The Harrowing Saga of a Donner Party Bride</h2>
       <p class="author">Daniel James Brown</p>
@@ -1391,7 +1280,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|science fiction|thriller">
-    <img class="cover" src="covers/dark-matter.jpg" alt="Cover of Dark Matter" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Dark Matter</h2>
       <p class="author">Blake Crouch</p>
@@ -1403,7 +1291,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|science fiction|thriller">
-    <img class="cover" src="covers/recursion.jpg" alt="Cover of Recursion" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Recursion</h2>
       <p class="author">Blake Crouch</p>
@@ -1415,7 +1302,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|romance|science fiction">
-    <img class="cover" src="covers/homebound.jpg" alt="Cover of Homebound" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Homebound</h2>
       <p class="author">Lydia Hope</p>
@@ -1427,7 +1313,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|literary">
-    <img class="cover" src="covers/the-rabbit-hutch.jpg" alt="Cover of The Rabbit Hutch" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Rabbit Hutch</h2>
       <p class="author">Tess Gunty</p>
@@ -1439,7 +1324,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|romance|science fiction">
-    <img class="cover" src="covers/the-last-hour-of-gann.jpg" alt="Cover of The Last Hour of Gann" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>The Last Hour of Gann</h2>
       <p class="author">R. Lee Smith</p>
@@ -1451,7 +1335,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|fantasy|literary|speculative fiction">
-    <img class="cover" src="covers/piranesi.jpg" alt="Cover of Piranesi" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Piranesi</h2>
       <p class="author">Susanna Clarke</p>
@@ -1463,7 +1346,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|thriller">
-    <img class="cover" src="covers/you.jpg" alt="Cover of You" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>You</h2>
       <p class="author">Caroline Kepnes</p>
@@ -1475,7 +1357,6 @@
   </article>
 
   <article class="book" data-tags="1990s|fiction|young adult">
-    <img class="cover" src="covers/youth-in-revolt.jpg" alt="Cover of Youth in Revolt" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Youth in Revolt</h2>
       <p class="author">C.D. Payne</p>
@@ -1487,7 +1368,6 @@
   </article>
 
   <article class="book" data-tags="2010s|fiction|horror|thriller">
-    <img class="cover" src="covers/fantasticland.jpg" alt="Cover of Fantasticland" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Fantasticland</h2>
       <p class="author">Mike Bockoven</p>
@@ -1499,7 +1379,6 @@
   </article>
 
   <article class="book" data-tags="2020s|fiction|contemporary|horror|lgbtqia+|literary">
-    <img class="cover" src="covers/tell-me-i-m-worthless.jpg" alt="Cover of Tell Me I'm Worthless" loading="lazy" onerror="this.replaceWith(placeholder(this))">
     <div>
       <h2>Tell Me I'm Worthless</h2>
       <p class="author">Alison Rumfitt</p>
@@ -1516,29 +1395,15 @@
 
 <div class="overlay" id="overlay" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-top">
-      <img class="modal-cover" id="modal-cover" src="" alt="">
-      <div>
-        <h3 id="modal-title"></h3>
-        <p class="modal-author" id="modal-author"></p>
-        <p class="modal-meta" id="modal-meta"></p>
-      </div>
-    </div>
+    <h3 id="modal-title"></h3>
+    <p class="modal-author" id="modal-author"></p>
+    <p class="modal-meta" id="modal-meta"></p>
     <p class="modal-desc" id="modal-desc"></p>
     <button class="modal-close" id="modal-close">Close</button>
   </div>
 </div>
 
 <script>
-  function placeholder(img) {
-    var d = document.createElement('div');
-    d.className = 'cover cover-blank';
-    d.setAttribute('aria-hidden', 'true');
-    var t = (img.getAttribute('alt') || '').replace('Cover of ', '').split(' ');
-    d.textContent = ((t[0] || '')[0] || '') + ((t[1] || '')[0] || '');
-    return d;
-  }
-
   (function () {
     var active = [];
     var books = Array.prototype.slice.call(document.querySelectorAll('.book'));
@@ -1548,7 +1413,6 @@
     var emptyEl = document.getElementById('empty');
 
     var overlay = document.getElementById('overlay');
-    var mCover = document.getElementById('modal-cover');
     var mTitle = document.getElementById('modal-title');
     var mAuthor = document.getElementById('modal-author');
     var mMeta = document.getElementById('modal-meta');
@@ -1574,15 +1438,7 @@
     }
 
     function openModal(book) {
-      var cover = book.querySelector('img.cover');
       var desc = book.querySelector('.desc-source');
-      if (cover) {
-        mCover.style.display = '';
-        mCover.src = cover.getAttribute('src');
-        mCover.alt = cover.getAttribute('alt');
-      } else {
-        mCover.style.display = 'none';
-      }
       mTitle.textContent = book.querySelector('h2').textContent;
       mAuthor.textContent = book.querySelector('.author').textContent;
       mMeta.textContent = book.querySelector('.pages').textContent;

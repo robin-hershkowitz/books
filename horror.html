@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horror Primer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16151a;
+    --card: #1f1e25;
+    --text: #eceae4;
+    --muted: #a49f93;
+    --star: #e0b04c;
+    --g-decade: #9aa0a8;
+    --g-contemporary: #e0b04c;
+    --g-dystopian: #d4707e;
+    --g-fantasy: #6fae8f;
+    --g-fiction: #7d9bd1;
+    --g-historical: #c98f5e;
+    --g-horror: #9d84c9;
+    --g-lgbtqiaplus: #5eb3b8;
+    --g-literary: #c96a4e;
+    --g-magical-realism: #b8c95e;
+    --g-science-fiction: #c95e8f;
+    --g-short-stories: #8c8fa8;
+    --g-speculative-fiction: #5f9ea0;
+    --g-thriller: #cfa3d8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  header { max-width: 1100px; margin: 0 auto 1.6rem; }
+
+  .nav {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin-bottom: 1.1rem;
+  }
+
+  .nav:hover, .nav:focus-visible { color: var(--text); border-bottom-color: var(--muted); outline: none; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 0.01em;
+  }
+
+  h1 .star { color: var(--star); }
+
+  .subtitle { color: var(--muted); margin-top: 0.4rem; font-size: 0.95rem; }
+
+  .filters {
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .filters-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+
+  .status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-top: 0.85rem;
+  }
+
+  .clear {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--star);
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 0.6rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .clear[hidden] { display: none; }
+
+  .tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--tc, var(--muted));
+    background: color-mix(in srgb, var(--tc, var(--muted)) 15%, transparent);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.14s ease, background 0.14s ease;
+  }
+
+  .tag:hover, .tag:focus-visible { border-color: var(--tc, var(--muted)); outline: none; }
+
+  .tag[aria-pressed="true"] {
+    background: var(--tc, var(--muted));
+    color: var(--bg);
+    border-color: var(--tc, var(--muted));
+  }
+
+  .decade { font-family: 'IBM Plex Mono', monospace; --tc: var(--g-decade); }
+
+  .year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .g-contemporary { --tc: var(--g-contemporary); }
+  .g-dystopian { --tc: var(--g-dystopian); }
+  .g-fantasy { --tc: var(--g-fantasy); }
+  .g-fiction { --tc: var(--g-fiction); }
+  .g-historical { --tc: var(--g-historical); }
+  .g-horror { --tc: var(--g-horror); }
+  .g-lgbtqiaplus { --tc: var(--g-lgbtqiaplus); }
+  .g-literary { --tc: var(--g-literary); }
+  .g-magical-realism { --tc: var(--g-magical-realism); }
+  .g-science-fiction { --tc: var(--g-science-fiction); }
+  .g-short-stories { --tc: var(--g-short-stories); }
+  .g-speculative-fiction { --tc: var(--g-speculative-fiction); }
+  .g-thriller { --tc: var(--g-thriller); }
+
+  .shelf { max-width: 1100px; margin: 0 auto; columns: 3 300px; column-gap: 1.1rem; }
+
+  .book {
+    background: var(--card);
+    border-left: 3px solid var(--star);
+    border-radius: 6px;
+    padding: 1.1rem 1.15rem 1.2rem;
+    margin-bottom: 1.1rem;
+    break-inside: avoid;
+  }
+
+  .book[hidden] { display: none; }
+
+  .book h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.12rem; line-height: 1.25; }
+
+  .author { color: var(--muted); font-size: 0.85rem; margin: 0.25rem 0 0.4rem; }
+
+  .pages {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.6rem; }
+
+  .more {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--star);
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(224,176,76,0.4);
+    padding: 0;
+    margin-top: 0.7rem;
+    cursor: pointer;
+  }
+
+  .more:hover, .more:focus-visible { border-bottom-color: var(--star); outline: none; }
+
+  .desc-source { display: none; }
+
+  .empty { max-width: 1100px; margin: 0 auto; color: var(--muted); font-size: 0.95rem; }
+  .empty[hidden] { display: none; }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,9,13,0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 50;
+  }
+
+  .overlay[hidden] { display: none; }
+
+  .modal {
+    background: var(--card);
+    border-left: 4px solid var(--star);
+    border-radius: 8px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.8rem 1.9rem 2rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+
+  .modal h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem; line-height: 1.2; }
+
+  .modal-author { color: var(--muted); font-size: 0.9rem; margin: 0.3rem 0 0.45rem; }
+
+  .modal-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .modal-desc { font-size: 0.95rem; margin-top: 1.3rem; }
+
+  .modal-close {
+    display: block;
+    margin: 1.5rem 0 0 auto;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--star);
+    background: none;
+    border: 1.5px solid var(--star);
+    border-radius: 5px;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+  }
+
+  .modal-close:hover, .modal-close:focus-visible { background: var(--star); color: var(--bg); outline: none; }
+
+  @media (prefers-reduced-motion: reduce) { .tag { transition: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="nav" href="./index.html">&larr; All shelves</a>
+  <h1>Horror Primer</h1>
+  <p class="subtitle">33 books &middot; oldest first &middot; tap Description for the blurb</p>
+</header>
+
+<section class="filters">
+  <p class="filters-label">Filter &mdash; tap to combine</p>
+  <div class="chip-row" id="legend">
+    <button class="tag decade" data-filter="1970s" aria-pressed="false">1970s</button>
+    <button class="tag decade" data-filter="1980s" aria-pressed="false">1980s</button>
+    <button class="tag decade" data-filter="1990s" aria-pressed="false">1990s</button>
+    <button class="tag decade" data-filter="2000s" aria-pressed="false">2000s</button>
+    <button class="tag decade" data-filter="2010s" aria-pressed="false">2010s</button>
+    <button class="tag decade" data-filter="2020s" aria-pressed="false">2020s</button>
+    <button class="tag g-contemporary" data-filter="contemporary" aria-pressed="false">contemporary</button>
+    <button class="tag g-dystopian" data-filter="dystopian" aria-pressed="false">dystopian</button>
+    <button class="tag g-fantasy" data-filter="fantasy" aria-pressed="false">fantasy</button>
+    <button class="tag g-fiction" data-filter="fiction" aria-pressed="false">fiction</button>
+    <button class="tag g-historical" data-filter="historical" aria-pressed="false">historical</button>
+    <button class="tag g-horror" data-filter="horror" aria-pressed="false">horror</button>
+    <button class="tag g-lgbtqiaplus" data-filter="lgbtqia+" aria-pressed="false">lgbtqia+</button>
+    <button class="tag g-literary" data-filter="literary" aria-pressed="false">literary</button>
+    <button class="tag g-magical-realism" data-filter="magical realism" aria-pressed="false">magical realism</button>
+    <button class="tag g-science-fiction" data-filter="science fiction" aria-pressed="false">science fiction</button>
+    <button class="tag g-short-stories" data-filter="short stories" aria-pressed="false">short stories</button>
+    <button class="tag g-speculative-fiction" data-filter="speculative fiction" aria-pressed="false">speculative fiction</button>
+    <button class="tag g-thriller" data-filter="thriller" aria-pressed="false">thriller</button>
+  </div>
+  <p class="status"><span id="count">33</span> shown<button class="clear" id="clear" hidden>clear</button></p>
+</section>
+
+<main class="shelf" id="shelf">
+
+  <article class="book" data-tags="1970s|fiction|horror|thriller">
+    <div>
+      <h2>The Stepford Wives</h2>
+      <p class="author">Ira Levin</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">1972</span><button class="tag decade" data-filter="1970s">1970s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Joanna moves her family to a Connecticut commuter town and finds the wives there uncannily devoted to housework and to their husbands, with no interests of their own and no irritation about anything. Her one friend starts changing too. Short, cold, and the phrase it gave the language has outlived most of its imitators.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1970s|fiction|dystopian|horror|thriller">
+    <div>
+      <h2>The Long Walk</h2>
+      <p class="author">Richard Bachman / Stephen King</p>
+      <p class="pages">370 pages</p>
+      <div class="tags"><span class="year">1979</span><button class="tag decade" data-filter="1970s">1970s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">One hundred teenage boys start walking south from the Maine border. Drop below four miles an hour and you get a warning; collect three and the soldiers on the halftrack shoot you. No finish line, only a last boy standing. King wrote it at eighteen and it is still the meanest thing he has published.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|historical|horror|literary">
+    <div>
+      <h2>Perfume: The Story of a Murderer</h2>
+      <p class="author">Patrick Süskind</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">1985</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Grenouille is born in the stink of a Paris fish market with no personal scent of his own and the finest nose in the world. Apprenticed to a perfumer, he sets out to capture the one smell he cannot synthesise, which belongs to young women and cannot be taken while they live.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|fiction|horror">
+    <div>
+      <h2>Swan Song</h2>
+      <p class="author">Robert R. McCammon</p>
+      <p class="pages">956 pages</p>
+      <div class="tags"><span class="year">1987</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Nuclear war, then the long walk through the ashes. A girl with an inexplicable gift, a wrestler turned protector, a drifter, and a thing wearing many faces that moves among the survivors encouraging the worst in them. A doorstopper apocalypse from the same era as The Stand and unembarrassed about it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|horror|literary|thriller">
+    <div>
+      <h2>American Psycho</h2>
+      <p class="author">Bret Easton Ellis</p>
+      <p class="pages">399 pages</p>
+      <div class="tags"><span class="year">1991</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Patrick Bateman, 26, Pierce & Pierce, reviews his skincare regimen and his business cards in the same flat voice he uses for the murders, and nobody in his circle can reliably tell him apart from the other interchangeable men in Valentino. Whether any of it happens is left open.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|horror|literary">
+    <div>
+      <h2>The Cipher</h2>
+      <p class="author">Kathe Koja</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">1991</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Nicholas finds a hole in the storage room floor of his apartment building that is absolutely black and does things to whatever is lowered into it. He and Nakota cannot leave it alone. Early nineties transgressive horror about self-destruction as a vocation, and a landmark of the Dell Abyss line.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1990s|fiction|horror|lgbtqia+">
+    <div>
+      <h2>Exquisite Corpse</h2>
+      <p class="author">Poppy Z. Brite</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">1996</span><button class="tag decade" data-filter="1990s">1990s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two serial killers, an English aristocrat and a New Orleans predator, find each other and collaborate. Explicit about sex, murder and cannibalism in equal measure, set against the early AIDS years, and still the book publishers cite when they talk about what they would not print now.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|horror|literary">
+    <div>
+      <h2>Come Closer</h2>
+      <p class="author">Sara Gran</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2003</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Amanda is an architect with a good marriage and a small tapping sound in the apartment. Then the notes she does not remember writing, the cigarettes she does not smoke, the bruises on her husband. A hundred and sixty pages of possession narrated by a woman losing the argument for her own mind.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|horror|short stories">
+    <div>
+      <h2>Haunted</h2>
+      <p class="author">Chuck Palahniuk</p>
+      <p class="pages">411 pages</p>
+      <div class="tags"><span class="year">2005</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Seventeen people answer an ad for a writers' retreat, get locked in a derelict theatre, and set about sabotaging the food and each other so their eventual survival story will sell better. Framed around the stories each tells, including the notorious one about the swimming pool.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|horror|thriller">
+    <div>
+      <h2>The Ruins</h2>
+      <p class="author">Scott Smith</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2006</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Four tourists in Mexico follow a German they met at the beach to a Mayan ruin off the map, and the Mayans at the treeline will not let them come back down. What is on the hill is a plant. Relentless, physiological, and almost entirely without hope.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|horror|science fiction">
+    <div>
+      <h2>John Dies at the End</h2>
+      <p class="author">David Wong</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2007</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A drug called soy sauce moves through a nowhere town and gives its users a view of things that should not be visible, including what is coming through. David and John are absolutely the wrong people to handle it. Comic horror that keeps getting genuinely frightening between jokes.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fiction|horror">
+    <div>
+      <h2>Survivor</h2>
+      <p class="author">J.F. Gonzalez</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2007</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A pregnant woman is separated from her husband on the highway and taken by people who make films of what they do to their subjects. Extreme horror from the Leisure paperback era, structured as an escape story, and notorious for how little it looks away.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|dystopian|horror|science fiction|thriller">
+    <div>
+      <h2>The Passage</h2>
+      <p class="author">Justin Cronin</p>
+      <p class="pages">784 pages</p>
+      <div class="tags"><span class="year">2010</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A military virus trial produces twelve immortal carriers, they get out, and America falls in about a hundred pages. Then a jump of a century to a walled colony in California running out of light, and a girl who does not age. Vampire apocalypse written with total literary seriousness.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|speculative fiction">
+    <div>
+      <h2>A Short Stay in Hell</h2>
+      <p class="author">Steven L. Peck</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2012</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-speculative-fiction" data-filter="speculative fiction">speculative fiction</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A devout geologist dies and learns the correct religion was Zoroastrianism. His hell is a Borgesian library of every possible book, which he must search for the volume telling his own life story before he can leave. A hundred pages, and the mathematics of it are the horror.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror">
+    <div>
+      <h2>No One Gets Out Alive</h2>
+      <p class="author">Adam L.G. Nevill</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2014</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Stephanie takes a cheap room in a Birmingham house because she has no money and no options, and the landlord's brother is worse than the sounds at night. Nevill spends the first half on poverty and coercion as their own kind of haunting, then lets the house be what it is.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror">
+    <div>
+      <h2>Revival</h2>
+      <p class="author">Stephen King</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2014</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A New England minister loses his family in an accident, denounces God from the pulpit, and returns to Jamie's life decades later as a travelling faith healer running on something he calls secret electricity. King has said it is the most frightening ending he has written, and the last twenty pages are Lovecraft rather than King.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|literary">
+    <div>
+      <h2>A Head Full of Ghosts</h2>
+      <p class="author">Paul Tremblay</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2015</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Fourteen-year-old Marjorie is either schizophrenic or possessed, her father invites a priest and a reality television crew to settle it, and her younger sister Merry narrates the aftermath years later while a blogger picks the resulting show apart episode by episode. Tremblay never rules either reading out.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|fantasy|horror">
+    <div>
+      <h2>The Library at Mount Char</h2>
+      <p class="author">Scott Hawkins</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2015</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Carolyn and her adopted siblings were raised by a man they call Father in a library of twelve catalogues, one per discipline: languages, war, healing, death. Father is missing and the succession is open. Absolutely unpredictable, extremely violent, and funnier than that suggests.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|thriller">
+    <div>
+      <h2>Fantasticland</h2>
+      <p class="author">Mike Bockoven</p>
+      <p class="pages">272 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A hurricane cuts off a Florida theme park with its staff inside, and five weeks later they are extracted having split into warring tribes by costume department. Told as an oral history of interviews after the fact, which keeps the reader assembling it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|literary|thriller">
+    <div>
+      <h2>I'm Thinking of Ending Things</h2>
+      <p class="author">Iain Reid</p>
+      <p class="pages">183 pages</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A woman drives with her new boyfriend to his parents' remote farm, planning to break up with him, and the visit goes wrong in ways that keep sliding sideways. Short, claustrophobic, and the ending recontextualises every page.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror">
+    <div>
+      <h2>The Black Farm</h2>
+      <p class="author">Elias Witherow</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A man kills himself to escape his marriage and arrives somewhere worse: a farm where the dead are processed by things that are not remotely human, and where suicide is the entry requirement. Grew out of internet horror and keeps that relentless, image-driven brutality.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|literary">
+    <div>
+      <h2>The Fisherman</h2>
+      <p class="author">John Langan</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two widowers from the same company go fishing together because it is the only thing that helps, and a stranger tells them about Dutchman's Creek. The long middle section is a folk history of a drowned Catskills valley and what was bargained with there. Grief-driven cosmic horror, elegiac rather than gory.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror|lgbtqia+|thriller">
+    <div>
+      <h2>The Cabin at the End of the World</h2>
+      <p class="author">Paul Tremblay</p>
+      <p class="pages">272 pages</p>
+      <div class="tags"><span class="year">2018</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two dads and their daughter are at a lake cabin when four strangers arrive and explain, apologetically, that the family must choose one of themselves to kill or the world ends. Tremblay never confirms whether they are right, and the book is unbearable for it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fiction|horror">
+    <div>
+      <h2>Woom</h2>
+      <p class="author">Duncan Ralston</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2018</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Angel checks into room 6 of a filthy motel, pays a sex worker to listen, and tells her stories about the building and what has happened in it, each one worse than the last, working toward why he chose this room. Body horror and birth horror, and among the more infamous of the extreme small-press titles.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|fantasy|historical|horror">
+    <div>
+      <h2>Slewfoot: A Tale of Bewitchery</h2>
+      <p class="author">Brom</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Connecticut, 1666. Abitha is newly widowed and about to be taken apart by her husband's brother and the village, while something ancient wakes in the woods that cannot remember whether it is a protector or a slaughterer. Brom illustrates his own books and the folk-horror imagery is the point.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|contemporary|horror|lgbtqia+|literary">
+    <div>
+      <h2>Tell Me I'm Worthless</h2>
+      <p class="author">Alison Rumfitt</p>
+      <p class="pages">264 pages</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Three years ago Alice and Ila went into a derelict house and came out with incompatible accounts of what happened. The house is fascism, literally and not metaphorically, and it wants them back. Furious, formally aggressive, and explicit about transphobia as a haunting.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|lgbtqia+|literary">
+    <div>
+      <h2>Just Like Home</h2>
+      <p class="author">Sarah Gailey</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Vera returns to the house her father built, where he also killed at least six people, because her dying mother summoned her and there is an artist in residence in the guest house making work out of the murders. The house is not neutral about her being back.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|historical|horror">
+    <div>
+      <h2>The Reformatory</h2>
+      <p class="author">Tananarive Due</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Florida, 1950. Twelve-year-old Robbie Stephens is sentenced to six months at the Gracetown School for Boys for kicking a white boy, and can see the haints of the children who died there and were never accounted for. Built on the real Dozier School, and it won the Bram Stoker.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror">
+    <div>
+      <h2>Incidents Around the House</h2>
+      <p class="author">Josh Malerman</p>
+      <p class="pages">pages &mdash;</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Eight-year-old Bela narrates, and the thing she calls Other Mommy lives in the closet and keeps asking a single question: can it go inside her heart. The child's voice is the entire engine, and it stays a child's voice while the house comes apart.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror">
+    <div>
+      <h2>Vampires at Sea</h2>
+      <p class="author">Lindsay Merbaum</p>
+      <p class="pages">168 pages</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">No description available.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|lgbtqia+|thriller">
+    <div>
+      <h2>We Used to Live Here</h2>
+      <p class="author">Marcus Kliewer</p>
+      <p class="pages">312 pages</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Eve and her girlfriend Charlie flip houses, and they have just bought a big old place in the woods. Then a man knocks: he grew up here, his family is in the car, could they look around, just for a minute. Eve says yes. They do not leave.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|literary|magical realism">
+    <div>
+      <h2>We Love You, Bunny</h2>
+      <p class="author">Mona Awad</p>
+      <p class="pages">496 pages</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-magical-realism" data-filter="magical realism">magical realism</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The sequel to Bunny, and this time the Bunnies get the microphone. They have a great deal to say about Samantha, about what really went on in that workshop, and about who was using whom. Cotton-candy menace at nearly five hundred pages.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|fiction|horror|thriller">
+    <div>
+      <h2>When the Wolf Comes Home</h2>
+      <p class="author">Nat Cassidy</p>
+      <p class="pages">304 pages</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-fiction" data-filter="fiction">fiction</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A struggling actress finds a five-year-old runaway in the bushes outside her apartment, and a bloody encounter with the boy's father sends the two of them running from something much worse than a man. Presents as a werewolf novel, is really about inherited fear. Stephen King called it a classic.</div>
+    </div>
+  </article>
+
+</main>
+
+<p class="empty" id="empty" hidden>No books match that combination.</p>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h3 id="modal-title"></h3>
+    <p class="modal-author" id="modal-author"></p>
+    <p class="modal-meta" id="modal-meta"></p>
+    <p class="modal-desc" id="modal-desc"></p>
+    <button class="modal-close" id="modal-close">Close</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var active = [];
+    var books = Array.prototype.slice.call(document.querySelectorAll('.book'));
+    var legendChips = Array.prototype.slice.call(document.querySelectorAll('#legend .tag'));
+    var countEl = document.getElementById('count');
+    var clearEl = document.getElementById('clear');
+    var emptyEl = document.getElementById('empty');
+
+    var overlay = document.getElementById('overlay');
+    var mTitle = document.getElementById('modal-title');
+    var mAuthor = document.getElementById('modal-author');
+    var mMeta = document.getElementById('modal-meta');
+    var mDesc = document.getElementById('modal-desc');
+    var mClose = document.getElementById('modal-close');
+    var lastFocus = null;
+
+    function apply() {
+      var shown = 0;
+      books.forEach(function (book) {
+        var tags = (book.getAttribute('data-tags') || '').split('|');
+        var match = active.every(function (f) { return tags.indexOf(f) !== -1; });
+        book.hidden = !match;
+        if (match) shown++;
+      });
+      countEl.textContent = shown;
+      clearEl.hidden = active.length === 0;
+      emptyEl.hidden = shown !== 0;
+      legendChips.forEach(function (chip) {
+        var on = active.indexOf(chip.getAttribute('data-filter')) !== -1;
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    function openModal(book) {
+      var desc = book.querySelector('.desc-source');
+      mTitle.textContent = book.querySelector('h2').textContent;
+      mAuthor.textContent = book.querySelector('.author').textContent;
+      mMeta.textContent = book.querySelector('.pages').textContent;
+      mDesc.textContent = desc ? desc.textContent.trim() : '';
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      mClose.focus();
+    }
+
+    function closeModal() {
+      overlay.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    document.addEventListener('click', function (e) {
+      var target = e.target;
+      if (target === mClose || target === overlay) { closeModal(); return; }
+      if (target.id === 'clear') { active = []; apply(); return; }
+      if (target.classList && target.classList.contains('more')) {
+        var card = target.closest('.book');
+        if (card) openModal(card);
+        return;
+      }
+      if (target.classList && target.classList.contains('tag')) {
+        var value = target.getAttribute('data-filter');
+        if (!value) return;
+        var i = active.indexOf(value);
+        if (i === -1) { active.push(value); } else { active.splice(i, 1); }
+        apply();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closeModal();
+    });
+
+    apply();
+  })();
+</script>
+
+</body>
+</html>
