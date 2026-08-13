@@ -97,13 +97,34 @@ h1 {
   border-radius: 2px 0 0 2px;
 }
 
+.title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+  margin: 0 0 12px;
+}
+
 .card h2 {
   font-family: "Fraunces", Georgia, serif;
   font-weight: 600;
   font-size: clamp(1.45rem, 3.4vw, 1.9rem);
   line-height: 1.15;
-  margin: 0 0 12px;
+  margin: 0;
   letter-spacing: -0.015em;
+}
+
+.badge {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid var(--accent-dim);
+  border-radius: 3px;
+  padding: 4px 9px;
+  white-space: nowrap;
+  transform: translateY(-2px);
 }
 
 .meta {
@@ -112,6 +133,13 @@ h1 {
   letter-spacing: 0.05em;
   color: var(--ink-low);
   margin: 0 0 18px;
+}
+
+.meta .author {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink);
 }
 
 .meta .sep { color: var(--accent-dim); padding: 0 7px; }
@@ -178,26 +206,32 @@ h1 {
     <main>
       <ul class="list">
       <li class="card first">
-        <h2>Whidbey</h2>
-        <p class="meta">T Kira Madden<span class="sep">/</span>2026<span class="sep">/</span>362 pp</p>
+        <div class="title-row"><h2>Whidbey</h2><span class="badge">Already on Everand</span></div>
+        <p class="meta"><span class="author">T Kira Madden</span><span class="sep">/</span>2026<span class="sep">/</span>362 pp</p>
         <p class="blurb">Three women connected through one man, in the aftermath of his murder. Birdie has fled to Whidbey Island to get away from the man who abused her as a child and has recently resurfaced. Mary-Beth is his mother. Linzie is a reality star turned memoirist and another of his victims. A whodunnit that keeps circling the question of who holds power over a story, the person who lived it or the person who tells it.</p>
         <ul class="tags"><li>literary thriller</li><li>multi-POV</li></ul>
       </li>
       <li class="card">
-        <h2>Culpability</h2>
-        <p class="meta">Bruce Holsinger<span class="sep">/</span>2025<span class="sep">/</span>320 pp</p>
+        <div class="title-row"><h2>The Original</h2><span class="badge">Already on Everand</span></div>
+        <p class="meta"><span class="author">Nell Stevens</span><span class="sep">/</span>2025</p>
+        <p class="blurb">Oxfordshire, 1899. Grace Inderwick has grown up an unwanted guest in her uncle's grand house, quietly building a secret career forging paintings so well that her copies are indistinguishable from the originals. Then a letter arrives from Italy from a man claiming to be Charles, the cousin who went to sea a decade ago and was presumed dead. Her aunt is certain it is him. Others are certain it is not. Grace, who knows more about fakes than anyone in the house, has to decide what she is willing to believe.</p>
+        <ul class="tags"><li>gothic</li><li>historical</li><li>queer</li></ul>
+      </li>
+      <li class="card">
+        <div class="title-row"><h2>Culpability</h2></div>
+        <p class="meta"><span class="author">Bruce Holsinger</span><span class="sep">/</span>2025<span class="sep">/</span>320 pp</p>
         <p class="blurb">The Cassidy-Shaw family's autonomous minivan collides with an oncoming car and kills an elderly couple, with seventeen-year-old Charlie in the driver's seat and his mother, an AI researcher, absorbed in her work in the back. Over a week of recuperation on the Chesapeake Bay, it becomes clear that every one of them is holding something back, and that each secret implicates the rest.</p>
         <ul class="tags"><li>family drama</li><li>techno-thriller</li></ul>
       </li>
       <li class="card">
-        <h2>Yesteryear</h2>
-        <p class="meta">Caro Claire Burke<span class="sep">/</span>2026</p>
+        <div class="title-row"><h2>Yesteryear</h2></div>
+        <p class="meta"><span class="author">Caro Claire Burke</span><span class="sep">/</span>2026</p>
         <p class="blurb">Natalie Heller Mills has millions of followers, six children, and a ranch that photographs beautifully. Then she wakes up on the same land in 1855, hauling firewood and washing clothes until her fingers bleed, with no way to tell whether this is a reality show, time travel, or a test she is failing. Very funny and then very frightening, with a narrator worth the whole book.</p>
         <ul class="tags"><li>satire</li><li>speculative</li></ul>
       </li>
       <li class="card">
-        <h2>11/22/63</h2>
-        <p class="meta">Stephen King<span class="sep">/</span>2011<span class="sep">/</span>849 pp</p>
+        <div class="title-row"><h2>11/22/63</h2></div>
+        <p class="meta"><span class="author">Stephen King</span><span class="sep">/</span>2011<span class="sep">/</span>849 pp</p>
         <p class="blurb">Jake Epping, a Maine high school English teacher, is shown a way into 1958 through the back of a diner and accepts the job of staying there until he can stop the Kennedy assassination. Years of building a life he did not plan on wanting, in a past that resists being changed. The long immersive middle is the reason people love it.</p>
         <ul class="tags"><li>time travel</li><li>doorstopper</li></ul>
       </li>
@@ -205,7 +239,7 @@ h1 {
     </main>
 
     <footer class="foot">
-      4 titles
+      5 titles
     </footer>
   </div>
 </body>
