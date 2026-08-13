@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Picked for Mom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #16151a;
+  --card: #1f1e25;
+  --card-hi: #262530;
+  --accent: #e0b04c;
+  --accent-dim: #8a6c2e;
+  --ink: #ece9e3;
+  --ink-mid: #a8a29a;
+  --ink-low: #6f6a64;
+  --rule: #2e2c36;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 28px 120px;
+}
+
+.masthead {
+  padding: 88px 0 48px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 20px;
+}
+
+h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  position: relative;
+  background: var(--card);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 30px 30px 26px;
+  margin-top: 18px;
+  transition: background 180ms ease, border-color 180ms ease;
+}
+
+.card:first-child { margin-top: 40px; }
+
+.card:hover, .card:focus-within {
+  background: var(--card-hi);
+  border-color: var(--rule);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 30px; bottom: 26px;
+  width: 2px;
+  background: linear-gradient(var(--accent), var(--accent-dim));
+  border-radius: 2px 0 0 2px;
+}
+
+.card h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.45rem, 3.4vw, 1.9rem);
+  line-height: 1.15;
+  margin: 0 0 12px;
+  letter-spacing: -0.015em;
+}
+
+.meta {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  color: var(--ink-low);
+  margin: 0 0 18px;
+}
+
+.meta .sep { color: var(--accent-dim); padding: 0 7px; }
+
+.blurb {
+  margin: 0 0 22px;
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--ink-mid);
+  max-width: 64ch;
+}
+
+.tags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tags li {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-low);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+.foot {
+  margin-top: 72px;
+  padding-top: 26px;
+  border-top: 1px solid var(--rule);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink-low);
+  text-transform: uppercase;
+}
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 20px 80px; }
+  .masthead { padding: 56px 0 36px; }
+  .card { padding: 24px 22px 22px; }
+  .card::before { top: 24px; bottom: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <p class="eyebrow">Reading list</p>
+      <h1>Picked for Mom</h1>
+    </header>
+
+    <main>
+      <ul class="list">
+      <li class="card first">
+        <h2>Whidbey</h2>
+        <p class="meta">T Kira Madden<span class="sep">/</span>2026<span class="sep">/</span>362 pp</p>
+        <p class="blurb">Three women connected through one man, in the aftermath of his murder. Birdie has fled to Whidbey Island to get away from the man who abused her as a child and has recently resurfaced. Mary-Beth is his mother. Linzie is a reality star turned memoirist and another of his victims. A whodunnit that keeps circling the question of who holds power over a story, the person who lived it or the person who tells it.</p>
+        <ul class="tags"><li>literary thriller</li><li>multi-POV</li></ul>
+      </li>
+      <li class="card">
+        <h2>Culpability</h2>
+        <p class="meta">Bruce Holsinger<span class="sep">/</span>2025<span class="sep">/</span>320 pp</p>
+        <p class="blurb">The Cassidy-Shaw family's autonomous minivan collides with an oncoming car and kills an elderly couple, with seventeen-year-old Charlie in the driver's seat and his mother, an AI researcher, absorbed in her work in the back. Over a week of recuperation on the Chesapeake Bay, it becomes clear that every one of them is holding something back, and that each secret implicates the rest.</p>
+        <ul class="tags"><li>family drama</li><li>techno-thriller</li></ul>
+      </li>
+      <li class="card">
+        <h2>Yesteryear</h2>
+        <p class="meta">Caro Claire Burke<span class="sep">/</span>2026</p>
+        <p class="blurb">Natalie Heller Mills has millions of followers, six children, and a ranch that photographs beautifully. Then she wakes up on the same land in 1855, hauling firewood and washing clothes until her fingers bleed, with no way to tell whether this is a reality show, time travel, or a test she is failing. Very funny and then very frightening, with a narrator worth the whole book.</p>
+        <ul class="tags"><li>satire</li><li>speculative</li></ul>
+      </li>
+      <li class="card">
+        <h2>11/22/63</h2>
+        <p class="meta">Stephen King<span class="sep">/</span>2011<span class="sep">/</span>849 pp</p>
+        <p class="blurb">Jake Epping, a Maine high school English teacher, is shown a way into 1958 through the back of a diner and accepts the job of staying there until he can stop the Kennedy assassination. Years of building a life he did not plan on wanting, in a past that resists being changed. The long immersive middle is the reason people love it.</p>
+        <ul class="tags"><li>time travel</li><li>doorstopper</li></ul>
+      </li>
+      </ul>
+    </main>
+
+    <footer class="foot">
+      4 titles
+    </footer>
+  </div>
+</body>
+</html>
