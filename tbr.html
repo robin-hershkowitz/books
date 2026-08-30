@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To Be Read</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16151a;
+    --card: #1f1e25;
+    --text: #eceae4;
+    --muted: #a49f93;
+    --star: #e0b04c;
+    --g-decade: #9aa0a8;
+    --g-classics: #e0b04c;
+    --g-contemporary: #d4707e;
+    --g-dystopian: #6fae8f;
+    --g-fantasy: #7d9bd1;
+    --g-feminism: #c98f5e;
+    --g-historical: #9d84c9;
+    --g-history: #5eb3b8;
+    --g-horror: #c96a4e;
+    --g-humor: #b8c95e;
+    --g-lgbtqiaplus: #e0b04c;
+    --g-literary: #d4707e;
+    --g-memoir: #6fae8f;
+    --g-mystery: #7d9bd1;
+    --g-nonfiction: #c98f5e;
+    --g-romance: #9d84c9;
+    --g-science-fiction: #5eb3b8;
+    --g-short-stories: #c96a4e;
+    --g-sociology: #b8c95e;
+    --g-speculative-fiction: #e0b04c;
+    --g-technology: #d4707e;
+    --g-thriller: #6fae8f;
+    --g-true-crime: #7d9bd1;
+    --g-western: #c98f5e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.55;
+    padding: 2.5rem 1.25rem 4rem;
+  }
+
+  header { max-width: 1100px; margin: 0 auto 1.6rem; }
+
+  .nav {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    margin-bottom: 1.1rem;
+  }
+
+  .nav:hover, .nav:focus-visible { color: var(--text); border-bottom-color: var(--muted); outline: none; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 0.01em;
+  }
+
+  .subtitle { color: var(--muted); margin-top: 0.4rem; font-size: 0.95rem; }
+
+  .filters {
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .filters-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+
+  .status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-top: 0.85rem;
+  }
+
+  .clear {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--star);
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 0.6rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .clear[hidden] { display: none; }
+
+  .tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    color: var(--tc, var(--muted));
+    background: color-mix(in srgb, var(--tc, var(--muted)) 15%, transparent);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.14s ease, background 0.14s ease;
+  }
+
+  .tag:hover, .tag:focus-visible { border-color: var(--tc, var(--muted)); outline: none; }
+
+  .tag[aria-pressed="true"] {
+    background: var(--tc, var(--muted));
+    color: var(--bg);
+    border-color: var(--tc, var(--muted));
+  }
+
+  .decade { font-family: 'IBM Plex Mono', monospace; --tc: var(--g-decade); }
+
+  .year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .g-classics { --tc: var(--g-classics); }
+  .g-contemporary { --tc: var(--g-contemporary); }
+  .g-dystopian { --tc: var(--g-dystopian); }
+  .g-fantasy { --tc: var(--g-fantasy); }
+  .g-feminism { --tc: var(--g-feminism); }
+  .g-historical { --tc: var(--g-historical); }
+  .g-history { --tc: var(--g-history); }
+  .g-horror { --tc: var(--g-horror); }
+  .g-humor { --tc: var(--g-humor); }
+  .g-lgbtqiaplus { --tc: var(--g-lgbtqiaplus); }
+  .g-literary { --tc: var(--g-literary); }
+  .g-memoir { --tc: var(--g-memoir); }
+  .g-mystery { --tc: var(--g-mystery); }
+  .g-nonfiction { --tc: var(--g-nonfiction); }
+  .g-romance { --tc: var(--g-romance); }
+  .g-science-fiction { --tc: var(--g-science-fiction); }
+  .g-short-stories { --tc: var(--g-short-stories); }
+  .g-sociology { --tc: var(--g-sociology); }
+  .g-speculative-fiction { --tc: var(--g-speculative-fiction); }
+  .g-technology { --tc: var(--g-technology); }
+  .g-thriller { --tc: var(--g-thriller); }
+  .g-true-crime { --tc: var(--g-true-crime); }
+  .g-western { --tc: var(--g-western); }
+
+  .shelf { max-width: 1100px; margin: 0 auto; columns: 3 300px; column-gap: 1.1rem; }
+
+  .book {
+    background: var(--card);
+    border-left: 3px solid var(--star);
+    border-radius: 6px;
+    padding: 1.1rem 1.15rem 1.2rem;
+    margin-bottom: 1.1rem;
+    break-inside: avoid;
+  }
+
+  .book[hidden] { display: none; }
+
+  .book h2 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.12rem; line-height: 1.25; }
+
+  .author { color: var(--muted); font-size: 0.85rem; margin: 0.25rem 0 0.4rem; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.6rem; }
+
+  .more {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--star);
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(224,176,76,0.4);
+    padding: 0;
+    margin-top: 0.7rem;
+    cursor: pointer;
+  }
+
+  .more:hover, .more:focus-visible { border-bottom-color: var(--star); outline: none; }
+
+  .desc-source { display: none; }
+
+  .empty { max-width: 1100px; margin: 0 auto; color: var(--muted); font-size: 0.95rem; }
+  .empty[hidden] { display: none; }
+
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,9,13,0.78);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 50;
+  }
+
+  .overlay[hidden] { display: none; }
+
+  .modal {
+    background: var(--card);
+    border-left: 4px solid var(--star);
+    border-radius: 8px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.8rem 1.9rem 2rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+
+  .modal h3 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.5rem; line-height: 1.2; }
+
+  .modal-author { color: var(--muted); font-size: 0.9rem; margin: 0.3rem 0 0.45rem; }
+
+  .modal-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  .modal-desc { font-size: 0.95rem; margin-top: 1.3rem; }
+
+  .modal-close {
+    display: block;
+    margin: 1.5rem 0 0 auto;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--star);
+    background: none;
+    border: 1.5px solid var(--star);
+    border-radius: 5px;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+  }
+
+  .modal-close:hover, .modal-close:focus-visible { background: var(--star); color: var(--bg); outline: none; }
+
+  @media (prefers-reduced-motion: reduce) { .tag { transition: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="nav" href="./index.html">&larr; All shelves</a>
+  <h1>To Be Read</h1>
+  <p class="subtitle">45 books &middot; tap Description for more</p>
+</header>
+
+<section class="filters">
+  <p class="filters-label">Filter &mdash; tap to combine</p>
+  <div class="chip-row" id="legend">
+    <button class="tag decade" data-filter="1960s" aria-pressed="false">1960s</button>
+    <button class="tag decade" data-filter="1980s" aria-pressed="false">1980s</button>
+    <button class="tag decade" data-filter="2000s" aria-pressed="false">2000s</button>
+    <button class="tag decade" data-filter="2010s" aria-pressed="false">2010s</button>
+    <button class="tag decade" data-filter="2020s" aria-pressed="false">2020s</button>
+    <button class="tag g-classics" data-filter="classics" aria-pressed="false">classics</button>
+    <button class="tag g-contemporary" data-filter="contemporary" aria-pressed="false">contemporary</button>
+    <button class="tag g-dystopian" data-filter="dystopian" aria-pressed="false">dystopian</button>
+    <button class="tag g-fantasy" data-filter="fantasy" aria-pressed="false">fantasy</button>
+    <button class="tag g-feminism" data-filter="feminism" aria-pressed="false">feminism</button>
+    <button class="tag g-historical" data-filter="historical" aria-pressed="false">historical</button>
+    <button class="tag g-history" data-filter="history" aria-pressed="false">history</button>
+    <button class="tag g-horror" data-filter="horror" aria-pressed="false">horror</button>
+    <button class="tag g-humor" data-filter="humor" aria-pressed="false">humor</button>
+    <button class="tag g-lgbtqiaplus" data-filter="lgbtqia+" aria-pressed="false">lgbtqia+</button>
+    <button class="tag g-literary" data-filter="literary" aria-pressed="false">literary</button>
+    <button class="tag g-memoir" data-filter="memoir" aria-pressed="false">memoir</button>
+    <button class="tag g-mystery" data-filter="mystery" aria-pressed="false">mystery</button>
+    <button class="tag g-nonfiction" data-filter="nonfiction" aria-pressed="false">nonfiction</button>
+    <button class="tag g-romance" data-filter="romance" aria-pressed="false">romance</button>
+    <button class="tag g-science-fiction" data-filter="science fiction" aria-pressed="false">science fiction</button>
+    <button class="tag g-short-stories" data-filter="short stories" aria-pressed="false">short stories</button>
+    <button class="tag g-sociology" data-filter="sociology" aria-pressed="false">sociology</button>
+    <button class="tag g-speculative-fiction" data-filter="speculative fiction" aria-pressed="false">speculative fiction</button>
+    <button class="tag g-technology" data-filter="technology" aria-pressed="false">technology</button>
+    <button class="tag g-thriller" data-filter="thriller" aria-pressed="false">thriller</button>
+    <button class="tag g-true-crime" data-filter="true crime" aria-pressed="false">true crime</button>
+    <button class="tag g-western" data-filter="western" aria-pressed="false">western</button>
+  </div>
+  <p class="status"><span id="count">45</span> shown<button class="clear" id="clear" hidden>clear</button></p>
+</section>
+
+<main class="shelf" id="shelf">
+
+  <article class="book" data-tags="2020s|horror|short stories" data-meta="2026">
+    <div>
+      <h2>Never Whistle at Night, Part II: Back for Blood</h2>
+      <p class="author">ed. Shane Hawk &amp; Theodore C. Van Alst Jr.</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-short-stories" data-filter="short stories">short stories</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The bestselling Indigenous dark fiction anthology returns with a second round of stories, this time leaning harder into monsters and mutilation. New contributors join returning ones, and the range runs from folkloric dread to outright body horror.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary|humor" data-meta="2023">
+    <div>
+      <h2>Big Swiss</h2>
+      <p class="author">Jen Beagin</p>
+      <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-humor" data-filter="humor">humor</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Greta transcribes sessions for a sex coach in Hudson, New York, and becomes obsessed with a client she nicknames Big Swiss. When she recognizes the voice at the dog park, she introduces herself under a false name and lets the affair run on a lie. Filthy, very funny, and sharper about trauma than its premise suggests.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|horror" data-meta="2024">
+    <div>
+      <h2>I Found a Lost Hallway in a Dying Mall</h2>
+      <p class="author">Ben Farthing</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Lisa finds her elderly coworker in an abandoned wing of a failing mall, talking to a circle of mannequins whose limbs are fused at wrong angles. When she looks away, they move, and the hallway is longer than it was. Liminal-space horror in the vein of creepypasta and SCP entries, and a standalone in the I Found series.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|mystery|thriller" data-meta="2026">
+    <div>
+      <h2>The Ending Writes Itself</h2>
+      <p class="author">Evelyn Clarke</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Six struggling writers are invited to a private Scottish island by a reclusive bestselling novelist, only to learn on arrival that he is dead and his final book is unfinished. Whoever writes a worthy ending in seventy-two hours gets the career of a lifetime. A locked-room mystery and a publishing-industry satire, written by V. E. Schwab and Cat Clarke under a shared pen name.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|humor" data-meta="2022">
+    <div>
+      <h2>Saint Sebastian&#x27;s Abyss</h2>
+      <p class="author">Mark Haber</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-humor" data-filter="humor">humor</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two art critics build entire careers on a single sixteenth-century painting, then destroy their friendship over three words. One is dying and has summoned the other to Berlin after decades of silence. A short, spiraling comedy about obsession and scholarly vanity.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|science fiction|dystopian|lgbtqia+" data-meta="2024">
+    <div>
+      <h2>The Shutouts</h2>
+      <p class="author">Gabrielle Korn</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A companion to Yours for the Taking, following the people left outside the sealed climate havens rather than the ones let in. Letters from a mother to the daughter she abandoned braid together with a journey across a wrecked continent.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|mystery|humor" data-meta="2026">
+    <div>
+      <h2>Death on the Lanai</h2>
+      <p class="author">Rachel Ekstrom Courage</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-mystery" data-filter="mystery">mystery</button><button class="tag g-humor" data-filter="humor">humor</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Golden Girls accept a mysterious invitation to a party on a private Biscayne Bay island, delivered with a jewel-encrusted brooch and a promise to honor the greatest artist of the century. Then someone turns up dead. Second in the licensed cozy series that began with Murder by Cheesecake.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|romance|contemporary" data-meta="2026">
+    <div>
+      <h2>Game On</h2>
+      <p class="author">Navessa Allen</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-romance" data-filter="romance">romance</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Tyler Neumann wants to destroy the father he has never met, and blackmailing tattoo artist Stella McCormick into playing his girlfriend is how he plans to get inside her family&#x27;s circles. Loathing at first sight curdles into something else. Book three of the Into Darkness series, enemies to lovers, extremely spicy, with a content warning up front.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|memoir|nonfiction|true crime" data-meta="2025">
+    <div>
+      <h2>Scarred: A Memoir of a Childhood Stolen and a Life Reclaimed</h2>
+      <p class="author">Clark Fredericks</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-memoir" data-filter="memoir">memoir</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-true-crime" data-filter="true crime">true crime</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Fredericks was groomed and abused for years by his small-town New Jersey Scout leader, a man everyone else regarded as a local hero. He stayed silent into adulthood, numbing it with addiction, until the night he killed his abuser and stood trial for murder. A hard read about trauma, vengeance, and what came after.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary" data-meta="2025">
+    <div>
+      <h2>Little Movements</h2>
+      <p class="author">Lauren Morrow</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Layla Smart leaves her husband and her Brooklyn life for a prestigious choreography residency at Briar House, an arts institution in rural Vermont. She wants to make art for its own sake; the director wants her to mine her people&#x27;s history. Then the institution&#x27;s own history surfaces, along with a betrayal at home and a pregnancy. Darkly funny debut.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|historical|feminism" data-meta="2026">
+    <div>
+      <h2>Where the Girls Were</h2>
+      <p class="author">Kate Schatz</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-feminism" data-filter="feminism">feminism</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">San Francisco, 1968. Baker is a valedictorian and a good girl until one night at the Fillmore, and the pregnancy that follows sends her to a home for unwed mothers. Inside a Victorian full of girls hiding the same secret, she finds shame, no choices at all, and unexpected solidarity.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|horror|thriller" data-meta="2017">
+    <div>
+      <h2>The White Road</h2>
+      <p class="author">Sarah Lotz</p>
+      <div class="tags"><span class="year">2017</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A thrill-seeking blogger goes caving for footage of dead bodies, then talks his way onto an Everest expedition for more. The mountain does not cooperate. Survival horror that gets colder and stranger the higher it climbs.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|horror|literary|lgbtqia+" data-meta="2009">
+    <div>
+      <h2>The Red Tree</h2>
+      <p class="author">Caitlin R. Kiernan</p>
+      <div class="tags"><span class="year">2009</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A novelist rents an isolated Rhode Island farmhouse to escape a breakup and finds the unfinished manuscript of the previous tenant, an anthropologist obsessed with the enormous oak on the property. Told as her own increasingly unreliable journal. Quiet, folkloric, and deeply unwell.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|horror|literary" data-meta="2017">
+    <div>
+      <h2>The Grip of It</h2>
+      <p class="author">Jac Jemc</p>
+      <div class="tags"><span class="year">2017</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Julie and James buy a cheap house in a small town to escape his gambling, and the house starts working on them. Stains bloom, rooms shift, bruises appear on her skin that no one can account for. A haunted-house novel that reads like a marriage falling apart from the inside.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|horror|fantasy" data-meta="2025">
+    <div>
+      <h2>King Sorrow</h2>
+      <p class="author">Joe Hill</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Cornered into stealing rare books from his college library, Arthur Oakes lets his friends summon a dragon out of a journal bound in human skin. It solves his problem. Then it wants a fresh sacrifice every year, forever. Hill&#x27;s first novel in nine years, and about nine hundred pages of dark academia turning into epic horror.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|memoir|nonfiction|sociology" data-meta="2015">
+    <div>
+      <h2>Primates of Park Avenue</h2>
+      <p class="author">Wednesday Martin</p>
+      <div class="tags"><span class="year">2015</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-memoir" data-filter="memoir">memoir</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-sociology" data-filter="sociology">sociology</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">An anthropologist by training moves to the Upper East Side and studies the mothers there as a field site: the hierarchies, the handbags as status displays, the ritualized exclusion. Read as ethnography or as gossip; it works either way.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary" data-meta="2024">
+    <div>
+      <h2>Same As It Ever Was</h2>
+      <p class="author">Claire Lombardo</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Julia Ames has finally settled into a stable midlife when a chance encounter with a woman from her past reopens everything she buried. Moves between her chaotic upbringing and the marriage and motherhood she has been quietly failing at. Long, interior, and very good on how a person keeps not becoming who they meant to be.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|science fiction|lgbtqia+" data-meta="2023">
+    <div>
+      <h2>The Archive Undying</h2>
+      <p class="author">Emma Mieko Candon</p>
+      <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">When an AI god goes mad and dies, everything it touched is corrupted, and Sunai walks out of the wreckage unable to die. He spends decades drinking and running from what he is until he takes a job on a salvage crew that knows exactly what he is worth. Dense, strange mecha science fiction that refuses to explain itself upfront.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|fantasy|romance" data-meta="2001">
+    <div>
+      <h2>Kushiel&#x27;s Dart</h2>
+      <p class="author">Jacqueline Carey</p>
+      <div class="tags"><span class="year">2001</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-romance" data-filter="romance">romance</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Phedre no Delaunay is born with a scarlet mote in her eye, marking her as chosen to find pleasure in pain, and is trained as both courtesan and spy in a kingdom descended from angels. What she overhears in bed turns out to be treason. Doorstop-sized political fantasy with a distinctive erotic engine.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|science fiction|mystery" data-meta="2021">
+    <div>
+      <h2>Far from the Light of Heaven</h2>
+      <p class="author">Tade Thompson</p>
+      <div class="tags"><span class="year">2021</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-mystery" data-filter="mystery">mystery</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Michelle Campion&#x27;s first command should have been uneventful: a colony ship on autopilot, a thousand sleeping passengers. She wakes to find dozens of them murdered and dismembered, and the ship&#x27;s AI unable to say how. A locked-room mystery in deep space.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|horror" data-meta="2022">
+    <div>
+      <h2>Mary: An Awakening of Terror</h2>
+      <p class="author">Nat Cassidy</p>
+      <div class="tags"><span class="year">2022</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Mary is fifty-something, invisible, quietly falling apart, and newly unemployed when she returns to the Arizona town where she grew up to settle her aunt&#x27;s affairs. Menopause, hallucinations, and a very old local horror arrive together. Nasty, funny, and unusually tender toward its protagonist.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary|technology" data-meta="2025">
+    <div>
+      <h2>Notes on Infinity</h2>
+      <p class="author">Austin Taylor</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-technology" data-filter="technology">technology</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Two Harvard chemistry students fall for each other while chasing an anti-aging breakthrough, drop out to found a biotech company, and become famous fast. What holds up under a funding round does not hold up under scrutiny. A campus romance that turns into a fraud story.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|science fiction|dystopian" data-meta="2011">
+    <div>
+      <h2>The Postmortal</h2>
+      <p class="author">Drew Magary</p>
+      <div class="tags"><span class="year">2011</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-dystopian" data-filter="dystopian">dystopian</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A cure for aging is discovered and quietly distributed, and nobody stops to ask what happens to a planet where no one dies of old age. Told as the digital record of one man who takes the cure at twenty-nine and lives through the consequences. Satirical, then genuinely bleak.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2000s|historical|literary" data-meta="2009">
+    <div>
+      <h2>The Golden Mean</h2>
+      <p class="author">Annabel Lyon</p>
+      <div class="tags"><span class="year">2009</span><button class="tag decade" data-filter="2000s">2000s</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Aristotle, stranded in the Macedonian court and prone to what he would not have called depression, is assigned to tutor a boy who will become Alexander the Great. A portrait of a difficult, brilliant teacher and a student he cannot make virtuous. Spare, physical prose.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1980s|historical|literary" data-meta="1982">
+    <div>
+      <h2>Cry to Heaven</h2>
+      <p class="author">Anne Rice</p>
+      <div class="tags"><span class="year">1982</span><button class="tag decade" data-filter="1980s">1980s</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A Venetian nobleman&#x27;s son is castrated and sent to a Naples conservatory, where he trains as a castrato alongside a Sicilian boy who has already lost everything to the same knife. Opera, revenge, and eighteenth-century Italy rendered at full Rice intensity.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|science fiction|lgbtqia+" data-meta="2026">
+    <div>
+      <h2>Hell&#x27;s Heart</h2>
+      <p class="author">Alexis Hall</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Earth is dead and humanity runs on fluid harvested from leviathans that swim the atmosphere of Jupiter. A nameless narrator signs onto the Pequod for money, follows a captain called A into her obsession, and falls for a woman from old Earth who speaks mostly in Latin. Moby-Dick retold as a queer, filthy, very funny space opera.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|fantasy|horror" data-meta="2016">
+    <div>
+      <h2>The Hike</h2>
+      <p class="author">Drew Magary</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-fantasy" data-filter="fantasy">fantasy</button><button class="tag g-horror" data-filter="horror">horror</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Ben steps out of a Pennsylvania hotel for a quick walk before a business meeting and cannot get back. The path will not let him leave, and what he meets on it includes a talking crab, a giantess, and men wearing dog faces. Fairy-tale logic with the cruelty left in.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="1960s|literary|speculative fiction|classics" data-meta="1963">
+    <div>
+      <h2>The Wall</h2>
+      <p class="author">Marlen Haushofer, trans. Shaun Whiteside</p>
+      <div class="tags"><span class="year">1963</span><button class="tag decade" data-filter="1960s">1960s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-speculative-fiction" data-filter="speculative fiction">speculative fiction</button><button class="tag g-classics" data-filter="classics">classics</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A woman wakes in an Austrian hunting lodge to find an invisible wall sealing her off from a world where everything beyond it appears to have died mid-motion. What follows is the record of her survival with a dog, a cow, and a cat. Less a disaster novel than a long, austere meditation on solitude and care.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|humor|sociology" data-meta="2020">
+    <div>
+      <h2>A Libertarian Walks Into a Bear</h2>
+      <p class="author">Matthew Hongoltz-Hetling</p>
+      <div class="tags"><span class="year">2020</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-humor" data-filter="humor">humor</button><button class="tag g-sociology" data-filter="sociology">sociology</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">In 2004 a group of libertarians moved en masse to Grafton, New Hampshire, to build a town free of government. Services collapsed, trash accumulated, and the bears got bold. Reported with a straight face, which makes it funnier.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|historical|mystery" data-meta="2025">
+    <div>
+      <h2>Bog Queen</h2>
+      <p class="author">Anna North</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-mystery" data-filter="mystery">mystery</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">An American forensic anthropologist is called to post-Brexit England to identify a perfectly preserved body pulled from a peat bog. The second thread belongs to the Iron Age druid whose body it is, and the moss itself gets a few pages. Peat-cutters want to sell the bog; activists want it untouched.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary|humor" data-meta="2025">
+    <div>
+      <h2>What a Time to Be Alive</h2>
+      <p class="author">Jade Chang</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-humor" data-filter="humor">humor</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Lola Treasure Gold is grieving her best friend and broke in Los Angeles when a video of her goes viral and turns her into an accidental wellness guru. She is either a scammer or a sage and cannot tell which. Satirical about the belief economy without being cruel to the woman selling it.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary" data-meta="2025">
+    <div>
+      <h2>Pan</h2>
+      <p class="author">Michael Clune</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A fifteen-year-old in suburban Illinois starts having panic attacks and concludes, not unreasonably given the evidence, that the god Pan has entered him. He and his friends build a theology around it. A debut novel about adolescent dread that takes the metaphysics seriously.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|science fiction|thriller" data-meta="2016">
+    <div>
+      <h2>Sleeping Giants</h2>
+      <p class="author">Sylvain Neuvel</p>
+      <div class="tags"><span class="year">2016</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-science-fiction" data-filter="science fiction">science fiction</button><button class="tag g-thriller" data-filter="thriller">thriller</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A girl falls into a hole in South Dakota and lands in the palm of a giant metal hand. Seventeen years later she leads the team assembling the rest of the body from pieces buried around the world. Told entirely in interviews, logs, and transcripts.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|horror|historical|western" data-meta="2023">
+    <div>
+      <h2>Lone Women</h2>
+      <p class="author">Victor LaValle</p>
+      <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-western" data-filter="western">western</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Adelaide Henry burns down her family&#x27;s California farm and heads to Montana in 1915 to homestead alone, carrying an enormously heavy steamer trunk she never opens in front of anyone. Frontier historical fiction with something monstrous locked inside it, and a real interest in the Black and immigrant women who actually settled that land.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary" data-meta="2025">
+    <div>
+      <h2>Albion</h2>
+      <p class="author">Anna Hope</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">The Brooke family gathers over five days at their thousand-acre Sussex estate to bury a charismatic, ruinous patriarch. One daughter wants to rewild it, her brother wants a psychedelic retreat for the very rich, and a woman arrives from America with a truth that will take the whole thing apart. Succession by way of the English country house novel.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|thriller|feminism|contemporary" data-meta="2026">
+    <div>
+      <h2>Bad Manners</h2>
+      <p class="author">Amy Beashel</p>
+      <div class="tags"><span class="year">2026</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-thriller" data-filter="thriller">thriller</button><button class="tag g-feminism" data-filter="feminism">feminism</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A men-only charity dinner, a group of young waitresses, jokes that stop being jokes, and hands that linger. What happens that night ripples out through families and years. A furious novel about male violence and about the women who were taught it would be rude to make a scene.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|horror|lgbtqia+" data-meta="2024">
+    <div>
+      <h2>Coup de Grâce</h2>
+      <p class="author">Sofia Ajram</p>
+      <div class="tags"><span class="year">2024</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A young man on his way to end his life gets off at a Montreal metro station and cannot find the exit. Escalators lead to more escalators, tiled corridors loop, and the station keeps unfolding. Liminal horror that is really about wanting to stop.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|horror|literary|lgbtqia+" data-meta="2023">
+    <div>
+      <h2>Monstrilio</h2>
+      <p class="author">Gerardo Sámano Córdova</p>
+      <div class="tags"><span class="year">2023</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-horror" data-filter="horror">horror</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">After her eleven-year-old son dies, Magos cuts out a piece of his lung and keeps it. It grows. It eats. It starts to resemble the boy. Told in four voices across years, a novel about grief that refuses to let the monster be only a metaphor.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2010s|literary|contemporary" data-meta="2011">
+    <div>
+      <h2>Salvage the Bones</h2>
+      <p class="author">Jesmyn Ward</p>
+      <div class="tags"><span class="year">2011</span><button class="tag decade" data-filter="2010s">2010s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Twelve days in rural Mississippi as Hurricane Katrina approaches, narrated by fifteen-year-old Esch, who is pregnant and reading Greek myth while her brother fights his pit bull for money. Fierce, physical, National Book Award winner.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|contemporary|lgbtqia+|humor" data-meta="2025">
+    <div>
+      <h2>The Book of Luke</h2>
+      <p class="author">Lovell Holder</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button><button class="tag g-humor" data-filter="humor">humor</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Ten years after winning a brutal reality competition show, Luke Griffin&#x27;s marriage to the first openly gay senator implodes, and he goes back on the show that made him. Dual timelines, cliffhangers, and a real interest in what fame does to a person over a decade.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|contemporary|lgbtqia+" data-meta="2025">
+    <div>
+      <h2>Woodworking</h2>
+      <p class="author">Emily St. James</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-contemporary" data-filter="contemporary">contemporary</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">Erica, a high school teacher in small-town South Dakota in 2016, comes out to exactly one person: a trans teenager at her school who has no interest in being anyone&#x27;s mentor. Funny and specific about transition, the Great Plains, and an election closing in.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|history|lgbtqia+" data-meta="2025">
+    <div>
+      <h2>What Is Queer Food?</h2>
+      <p class="author">John Birdsall</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-history" data-filter="history">history</button><button class="tag g-lgbtqiaplus" data-filter="lgbtqia+">lgbtqia+</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A history of twentieth-century queer American life told through kitchens, dinner parties, and cookbooks, from James Beard and Alice B. Toklas onward. Argues that queer food is less a cuisine than a set of survival strategies.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|historical|literary" data-meta="2025">
+    <div>
+      <h2>The Hounding</h2>
+      <p class="author">Xenobe Purvis</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-historical" data-filter="historical">historical</button><button class="tag g-literary" data-filter="literary">literary</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">In a drought-stricken eighteenth-century English village, five sisters are said by their neighbors to turn into dogs. The novel is less interested in whether it is true than in how quickly a community decides to act on it. Short, dry, and menacing.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|nonfiction|history" data-meta="2025">
+    <div>
+      <h2>A Marriage at Sea</h2>
+      <p class="author">Sophie Elmhirst</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-nonfiction" data-filter="nonfiction">nonfiction</button><button class="tag g-history" data-filter="history">history</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">In 1973 Maurice and Maralyn Bailey sold everything to sail to New Zealand, and a whale sank their boat in the Pacific. They survived one hundred and eighteen days in a raft. A portrait of a marriage stripped to its structure.</div>
+    </div>
+  </article>
+
+  <article class="book" data-tags="2020s|literary|romance" data-meta="2025">
+    <div>
+      <h2>Heart the Lover</h2>
+      <p class="author">Lily King</p>
+      <div class="tags"><span class="year">2025</span><button class="tag decade" data-filter="2020s">2020s</button><button class="tag g-literary" data-filter="literary">literary</button><button class="tag g-romance" data-filter="romance">romance</button></div>
+      <button class="more">Description</button>
+      <div class="desc-source">A writer looks back on the two men she loved at once in college, the books that passed between them, and the decades that followed. Short, exact, and mostly about how a first love keeps rearranging the rest of a life.</div>
+    </div>
+  </article>
+
+</main>
+
+<p class="empty" id="empty" hidden>No books match those filters.</p>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <h3 id="m-title"></h3>
+    <p class="modal-author" id="m-author"></p>
+    <p class="modal-meta" id="m-meta"></p>
+    <p class="modal-desc" id="m-desc"></p>
+    <button class="modal-close" id="m-close">Close</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var shelf = document.getElementById('shelf');
+    var books = Array.prototype.slice.call(shelf.querySelectorAll('.book'));
+    var legendChips = Array.prototype.slice.call(document.querySelectorAll('#legend .tag'));
+    var countEl = document.getElementById('count');
+    var clearEl = document.getElementById('clear');
+    var emptyEl = document.getElementById('empty');
+    var overlay = document.getElementById('overlay');
+    var mTitle = document.getElementById('m-title');
+    var mAuthor = document.getElementById('m-author');
+    var mMeta = document.getElementById('m-meta');
+    var mDesc = document.getElementById('m-desc');
+    var mClose = document.getElementById('m-close');
+    var active = [];
+    var lastFocus = null;
+
+    function apply() {
+      var shown = 0;
+      books.forEach(function (book) {
+        var tags = (book.getAttribute('data-tags') || '').split('|');
+        var match = active.every(function (f) { return tags.indexOf(f) !== -1; });
+        book.hidden = !match;
+        if (match) shown++;
+      });
+      countEl.textContent = shown;
+      clearEl.hidden = active.length === 0;
+      emptyEl.hidden = shown !== 0;
+      legendChips.forEach(function (chip) {
+        var on = active.indexOf(chip.getAttribute('data-filter')) !== -1;
+        chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    function openModal(book) {
+      var desc = book.querySelector('.desc-source');
+      mTitle.textContent = book.querySelector('h2').textContent;
+      mAuthor.textContent = book.querySelector('.author').textContent;
+      mMeta.textContent = book.getAttribute('data-meta') || '';
+      mDesc.textContent = desc ? desc.textContent.trim() : '';
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      mClose.focus();
+    }
+
+    function closeModal() {
+      overlay.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    document.addEventListener('click', function (e) {
+      var target = e.target;
+      if (target === mClose || target === overlay) { closeModal(); return; }
+      if (target.id === 'clear') { active = []; apply(); return; }
+      if (target.classList && target.classList.contains('more')) {
+        var card = target.closest('.book');
+        if (card) openModal(card);
+        return;
+      }
+      if (target.classList && target.classList.contains('tag')) {
+        var value = target.getAttribute('data-filter');
+        if (!value) return;
+        var i = active.indexOf(value);
+        if (i === -1) { active.push(value); } else { active.splice(i, 1); }
+        apply();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closeModal();
+    });
+
+    apply();
+  })();
+</script>
+
+</body>
+</html>
